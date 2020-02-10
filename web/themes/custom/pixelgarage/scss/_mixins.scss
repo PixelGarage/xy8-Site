@@ -1,0 +1,50 @@
+/*
+ * Pixelgarage mixins
+ * --------------------------------------------------*/
+//
+// Imports all vendor mixins
+@import "mixins/vendor/general";
+@import "mixins/vendor/animation";
+@import "mixins/vendor/transformations";
+@import "mixins/vendor/images-filters";
+
+// grid and spacing
+@import "mixins/spaces";
+@import "mixins/grid";
+
+// typography
+@import "mixins/typography/text";
+
+// elements and fields
+@import "mixins/components/button";
+@import "mixins/components/link";
+@import "mixins/components/form-elements";
+@import "mixins/components/html_elements";
+@import "mixins/components/stripe-buttons";
+
+// components
+@import "mixins/components/odometer";
+@import "mixins/components/popup-date";
+@import "mixins/components/block_language";
+@import "mixins/components/block_socials";
+@import "mixins/components/block_follow_links";
+@import "mixins/components/block-menues";
+// structuring components
+@import "mixins/components/fields";
+@import "mixins/components/fields-teaser";
+@import "mixins/components/view-filters";
+@import "mixins/components/view-pager";
+@import "mixins/components/view-tabs";
+
+// structures
+@import "mixins/structures/fieldset";
+@import "mixins/structures/form-field-wrappers";
+@import "mixins/structures/webform-field-wrappers";
+@import "mixins/structures/bs-carousel";
+@import "mixins/structures/bs-accordion";
+@import "mixins/structures/masonry";
+@import "mixins/structures/modal";
+@import "mixins/structures/paragraph-switch";
+
+// theme
+@import "mixins/theme";

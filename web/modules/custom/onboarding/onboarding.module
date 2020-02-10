@@ -1,0 +1,114 @@
+<?php
+/*
+ * Module file for the onboarding process
+ * @file
+ *
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Session wide data container.
+ *
+ * @return array Returns the session data array.
+ */
+function &onboarding_session_data() {
+  if (!isset($_SESSION['onboarding'])) {
+    $_SESSION['onboarding'] = array();
+  }
+  return $_SESSION['onboarding'];
+}
+
+/*****************************************************************************
+ * Add onboarding actions to user
+ ****************************************************************************/
+/**
+ * Implements hook_entity_operation().
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ */
+function onboarding_entity_operation(EntityInterface $entity) {
+  $operations = [];
+  // make sure to modify only user entities
+  if ($entity->getEntityTypeId() !== 'user') return $operations;
+
+  // make sure only users with the right permission can see operation
+  if (!(\Drupal::currentUser()->hasPermission('administer users'))) return $operations;
+
+  // make sure only user objects with a on-boarding status set show this action
+  $values = $entity->toArray();
+  if (!isset($values['field_onboarding_status']) || empty($values['field_onboarding_status'])) return $operations;
+
+  // build operation
+  $operations['onboarding_complete'] = [
+    'title' => t('Complete on-boarding'),
+    'url' => Url::fromRoute('onboarding.user.complete', [
+      'user' => $entity->id(),
+    ]),
+    'weight' => 10,
+  ];
+  return $operations;
+}
+
+
+/*****************************************************************************
+ * Validate onboarding webforms
+ ****************************************************************************/
+
+/**
+ * Implements hook_webform_element_alter().
+ */
+function onboarding_webform_element_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+  // check for desired element and add validation constraint
+  if (isset($element['#webform_id'])) {
+    switch ($element['#webform_id']) {
+      case 'start_onboarding--name':
+      case 'iban_check--submitted_amount':
+        // validate user name
+        $element['#element_validate'][] = array(
+          'Drupal\onboarding\Validate\OnboardingValidateConstraint',
+          'validate'
+        );
+        break;
+    }
+  }
+}
+
+/*****************************************************************************
+ * Alter onboarding step webforms
+ ****************************************************************************/
+
+/**
+ * Implements hook_form_alter().
+ */
+function onboarding_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\onboarding\OnboardingManagerInterface $onboarding_manager */
+  $onboarding_manager = \Drupal::service('onboarding.manager');
+  if ($onboarding_manager->isOnboardingStepWebform($form_id)) {
+    $form['actions']['submit']['#submit'][] = 'submit_onboarding_step_webform';
+  }
+}
+
+/**
+ * Submit handler for all on-boarding webforms.
+ *
+ * The handler updates the user with the collected webform data for
+ * all on-boarding steps.
+ */
+function submit_onboarding_step_webform($form, FormStateInterface $form_state) {
+  /** @var \Drupal\onboarding\OnboardingManagerInterface $onboarding_manager */
+  $onboarding_manager = \Drupal::service('onboarding.manager');
+  $onboarding_session = &onboarding_session_data();
+
+  // update user with step values and status
+  $user = $onboarding_session['onboarding_user'];
+  $values =  $form_state->getValues();
+  $onboarding_manager->updateOnboardingUser($user, $values);
+
+  // redirect to next onboarding webform
+  $url = Url::fromUri($user->field_onboarding_link->uri);
+  $form_state->setRedirectUrl($url);
+
+}

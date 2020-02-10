@@ -1,0 +1,40 @@
+/*
+ * Pixelgarage utilities
+ * --------------------------------------------------*/
+//
+// Grid classes and space type classes
+// Space classes (margin, padding) for all space types (column, section, ...)
+
+// 0-space classes and default space classes
+@include pxl-make-space0-classes();
+@include pxl-make-yspace-classes();
+
+// grid
+@if $enable-grid-classes {
+  @include pxl-make-yspace-classes(column);
+}
+
+// section
+@include pxl-make-yspace-classes(section);
+
+// article
+
+
+// field
+
+
+//
+// Typography classes
+//
+// text transformations
+.uppercase-100 { text-transform: uppercase; letter-spacing: 0.1em }
+.uppercase-125 { text-transform: uppercase; letter-spacing: 0.125em }
+.uppercase-150 { text-transform: uppercase; letter-spacing: 0.150em }
+.uppercase-175 { text-transform: uppercase; letter-spacing: 0.175em }
+
+// text alignment
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-nowrap { white-space: nowrap; }
+

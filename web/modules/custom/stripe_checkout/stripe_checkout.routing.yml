@@ -1,0 +1,31 @@
+stripe_checkout.session:
+  path: 'stripe/checkout/session'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\stripe_checkout\Controller\StripeCheckoutController::handleSessionCallback'
+  requirements:
+    _access: 'TRUE'
+
+stripe_checkout.custom_button:
+  path: 'stripe/checkout/custom_button'
+  defaults:
+    _controller: '\Drupal\stripe_checkout\Controller\StripeCheckoutController::handleCustomButtonCallback'
+  requirements:
+    _access: 'TRUE'
+
+stripe_checkout.fee:
+  path: 'stripe/checkout/fee'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\stripe_checkout\Controller\StripeCheckoutController::handleFeeCallback'
+  requirements:
+    _access: 'TRUE'
+
+stripe_checkout.delete_subscription:
+  path: 'stripe/checkout/user/{user}/delete_subscription'
+  defaults:
+    _form: '\Drupal\stripe_checkout\Form\ConfirmSubscriptionDeleteForm'
+    _title: 'Confirm User Subscription Deletion'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    user: ^\d+$

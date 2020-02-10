@@ -1,0 +1,18 @@
+{
+  "name": "pixelgarage/stripe_checkout",
+  "type": "drupal-custom-module",
+  "description": "The stripe_checkout module provides field formatters for the number (decimal) field that can display one or more Stripe Checkout buttons.",
+  "keywords": ["Drupal", "Stripe Checkout", "Payment", "Billing"],
+  "authors": [
+      {
+          "name": "Ralph Moser",
+          "homepage": "https://pixelgarage.ch",
+          "role": "Maintainer"
+      }
+  ],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "stripe/stripe-php": "^6"
+  }
+}

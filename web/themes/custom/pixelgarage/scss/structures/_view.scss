@@ -1,0 +1,32 @@
+/*
+ *  Views component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+
+
+// General settings
+// -------------------------
+.view {
+  &[class*='view-display-id-page'] {
+    // page views
+    @include pxl-spacey(py, s1, section);
+  }
+
+  .view-filters {
+    @include view-filter-definition();
+  }
+
+  .view-content {
+    @include view-tabs();
+    @include masonry-three();
+    @include bs-carousel(false, true);
+  }
+
+  @include view-pager;
+}

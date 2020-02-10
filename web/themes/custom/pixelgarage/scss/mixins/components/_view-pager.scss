@@ -1,0 +1,34 @@
+/*
+ *  View pager component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+@mixin view-pager {
+  .pager.pager--infinite-scroll {
+    @include pxl-no-list-style;
+    margin: 0;
+    text-align: center;
+
+    .pager__item {
+      display: inline-block;
+
+      a {
+        @include pxl-button;
+        margin: 0 !important;
+      }
+    }
+  }
+}
+
+@mixin view-pager-theme($color, $background-color, $hover-color, $border-color) {
+  // view pager button
+  .pager.pager--infinite-scroll .pager__item a {
+    @include pxl-button-theme($color: $color, $background-color: $background-color, $hover-color: $hover-color, $border-color: $border-color);
+  }
+}

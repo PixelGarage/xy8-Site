@@ -1,0 +1,257 @@
+/*
+ *  Masonry component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$masonry-gutter-dist: 3%;  // in %
+$horiz-grid-gutter-dist: $masonry-gutter-dist;
+$horiz-grid-row-height: 240px;
+
+
+// Mixins
+// -------------------------
+//
+// ajax loader
+@mixin pe-ajax-loader() {
+  #proximity-ajax-loader {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    img {
+      display: inline-block;
+      max-height: 15px;
+    }
+  }
+}
+
+//
+// define grid item
+@mixin pe-grid-item {
+  display: inline-block;
+  overflow: hidden;
+  margin: 0 0 (2 * $masonry-gutter-dist) !important;
+  padding: 0;
+  opacity: 1.0;
+  @include box-shadow($pxl-box-shadow);
+
+  @include media-breakpoint-up(sm) {
+    margin: 0 0 $masonry-gutter-dist !important;
+  }
+
+  .pe-item-inner {
+    a.button {
+      display: none;
+    }
+  }
+
+  &.shown {
+    opacity: 1.0;
+  }
+
+  &.pe-item-ajax, &.pe-item-no-ajax, &.pe-item-linked {
+    cursor: pointer;
+    // see nodes styling (posts, testimonials, SoMe etc.)
+  }
+
+}
+@mixin pe-grid-item-theme($color, $background: white) {
+  .pe-container > .pe-item {
+    color: $color;
+    background-color: $background;
+  }
+}
+
+
+//
+// masonry with two columns
+@mixin masonry-two() {
+  > .pe-container {
+
+    .grid-sizer, .pe-item {
+      width: 100%;
+    }
+
+    .gutter-sizer {
+      width: 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      .grid-sizer, .pe-item {
+        width: (50% - $masonry-gutter-dist/2);
+      }
+
+      .gutter-sizer {
+        width: $masonry-gutter-dist;
+      }
+    }
+
+    .pe-item {
+      @include pe-grid-item();
+    }
+
+    // modal dialog
+    .modal {
+      @include pxl-modal();
+    }
+
+    // ajax loader
+    @include pe-ajax-loader;
+  }
+}
+
+
+
+//
+// masonry with three columns
+@mixin masonry-three() {
+  > .pe-container {
+
+    .grid-sizer, .pe-item {
+      width: 100%;
+    }
+
+    .gutter-sizer {
+      width: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      .grid-sizer, .pe-item {
+        width: (50% - $masonry-gutter-dist/2);
+      }
+
+      .gutter-sizer {
+        width: $masonry-gutter-dist;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      .grid-sizer, .pe-item {
+        width: (33.333333% - $masonry-gutter-dist*2/3);
+      }
+    }
+
+    .pe-item {
+      @include pe-grid-item();
+    }
+
+    // modal dialog
+    .modal {
+      @include pxl-modal();
+    }
+
+    // ajax loader
+    @include pe-ajax-loader;
+  }
+}
+
+//
+// masonry for large screens
+@mixin masonry-four() {
+  > .pe-container {
+
+    .grid-sizer, .pe-item {
+      width: 100%;
+    }
+
+    .gutter-sizer {
+      width: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      // 2 columns
+      .grid-sizer, .pe-item {
+        width: (50% - $masonry-gutter-dist/2);
+      }
+
+      .gutter-sizer {
+        width: $masonry-gutter-dist;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      // 3 columns
+      .grid-sizer, .pe-item {
+        width: (33.333333% - $masonry-gutter-dist*2/3);
+      }
+    }
+
+    @include media-breakpoint-up(xl) {
+      // 4 columns
+      .grid-sizer, .pe-item {
+        margin: 0 -2px 0 0;
+        width: (25% - 3*$masonry-gutter-dist/4);
+      }
+    }
+
+    .pe-item {
+      @include pe-grid-item();
+    }
+
+    // modal dialog
+    .modal {
+      @include pxl-modal();
+    }
+
+    // ajax loader
+    @include pe-ajax-loader;
+  }
+}
+
+//
+// horizontal responsive grid
+@mixin horizontal-grid() {
+  > .pe-container {
+    width: 100%;
+
+    .grid-sizer, .pe-item {
+      width: 100%;
+    }
+
+    .gutter-sizer {
+      width: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      .grid-sizer, .pe-item {
+        width: (50% - $horiz-grid-gutter-dist/2);
+        height: $horiz-grid-row-height;
+      }
+
+      .gutter-sizer {
+        width: $horiz-grid-gutter-dist;
+      }
+    }
+
+    .pe-item {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      margin: 0 0 $horiz-grid-gutter-dist !important;
+      opacity: 1.0;
+      @include transition(opacity 1s);
+
+      &.shown {
+        opacity: 1.0;
+      }
+
+      &.pe-item-ajax, &.pe-item-no-ajax, &.pe-item-linked {
+        cursor: pointer;
+        // see nodes styling
+      }
+
+    }
+
+    // modal dialog
+    .modal {
+      @include pxl-modal();
+    }
+
+    // ajax loader
+    @include pe-ajax-loader;
+  }
+}
+

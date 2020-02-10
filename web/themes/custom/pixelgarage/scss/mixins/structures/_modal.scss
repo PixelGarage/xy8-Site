@@ -1,0 +1,142 @@
+/*
+ *  Modal dialog component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$pxl-fading-height: 1px;
+$modal-max-width: 900px;
+
+// Mixins
+// -------------------------
+//
+// modal backdrop
+@mixin pxl-modal-backdrop() {
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+}
+
+//
+// Bootstrap modal
+@mixin pxl-modal() {
+  &.modal-fixed-height {
+    // full size modal on small screen, body is scrolling
+    height: 100%;
+    overflow-y: hidden;
+
+    .modal-dialog {
+      height: 100%;
+
+      .modal-content {
+        height: 100%;
+
+        .modal-header, .modal-footer {
+          position: relative;
+
+          .body-fading {
+            display: block;
+            position: absolute;
+            top: auto;
+            left: 0;
+            right: 0;
+            height: $pxl-fading-height;
+            z-index: 10;
+
+            &.body-fading-top {
+              bottom: -$pxl-fading-height;
+              @include gradient-y(#aaa, rgba(0,0,0,0.0));
+            }
+
+            &.body-fading-bottom {
+              top: -$pxl-fading-height;
+              @include gradient-y(rgba(0,0,0,0.0), #aaa);
+            }
+          }
+        }
+
+        .modal-body {
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  .modal-dialog {
+    margin: 0 auto;
+    width: 100%;
+    max-width: $modal-max-width;
+
+    .modal-content {
+      position: relative;
+      padding: 0 1.2rem;
+      @include border-radius(0);
+      border: none;
+      @include box-shadow(none);
+
+      @include media-breakpoint-up(md) {
+        padding: 1rem 2rem;
+      }
+      @include media-breakpoint-up(lg) {
+        padding: 1rem 3rem;
+      }
+
+      .modal-header {
+        position: relative;
+        padding: 0;
+        min-height: 60px;
+        border: none;
+
+        h2.modal-title {
+
+        }
+
+        button.close {
+          display: block;
+          position: absolute;
+          margin: 0 !important;
+          padding: 0 15px;
+          top: 10px;
+          right: 0;
+          opacity: 1.0;
+          z-index: 1; // has to be above body
+          border: none;
+
+          span {
+            padding: 0;
+            font-family: $pxl-font;
+            font-size: 60px;
+            font-weight: normal;
+            line-height: 1;
+          }
+        }
+
+        .body-fading {
+          display: none;
+        }
+      }
+
+      .modal-body {
+        padding: 0;
+
+        //
+        // content styled separately
+
+      }
+
+      .modal-footer {
+        display: none;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,121 @@
+/*
+ *  Header component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$expand-breakpoint: xl;
+$header-height: auto;
+
+
+// Mixins
+// -------------------------
+
+
+
+// Main settings
+// -------------------------
+header {
+  border-bottom: none;
+  height: $header-height;
+
+  &.fixed-top {
+    body.toolbar-horizontal &,
+    body.toolbar-vertical & {
+      top: 39px;
+    }
+    body.toolbar-horizontal.toolbar-tray-open & {
+      top: 79px;
+    }
+  }
+
+  .navbar {
+    padding: 0;
+
+    .container, .container-fluid {
+      // header (branding)
+      position: relative;
+      padding: 0;
+      width: 100%;
+
+      a.navbar-brand {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+
+        img.site-logo {
+          display: block;
+          width: 220px;
+          height: auto;
+          vertical-align: middle !important;
+        }
+
+        span.site-name {
+          @include pxl-font-plain-style(subtitle);
+        }
+
+        @include media-breakpoint-up(md) {
+          left: 0;
+          img.site-logo {
+            width: 350px;
+          }
+        }
+        @include media-breakpoint-up(xl) {
+          left: 0;
+          img.site-logo {
+            width: 400px;
+          }
+        }
+      }
+
+      // navbar toggle with burger
+      .navbar-toggler {
+        position: relative;
+        vertical-align: middle;
+        padding: 0;
+        margin: 0;
+        height: 30px;
+        border: none;
+        @include border-radius(0);
+        background: none;
+
+        .navbar-toggler-icon {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          background: transparent url("../images/icon_close_dark.svg") no-repeat left top/contain;
+          @include border-radius(0);
+        }
+        &.collapsed {
+          height: 23px;
+          .navbar-toggler-icon {
+            background: transparent url("../images/navi_burger.svg") no-repeat left top/contain;
+          }
+        }
+      }
+
+      // collapse part
+      .navbar-collapse {
+        position: relative;
+        justify-content: flex-end;
+        border: 0;
+        @include pxl-spacey(pt, s1, section);
+
+        @include media-breakpoint-up($expand-breakpoint) {
+          padding: 0;
+        }
+      }
+
+      //
+      // Menues
+      // main menu
+      @include main-menu();
+      // sub navigation
+      @include sub-menu();
+      // top navigation
+      @include account-menu();
+    }
+  }
+}
+

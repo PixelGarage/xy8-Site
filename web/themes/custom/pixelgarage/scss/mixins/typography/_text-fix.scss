@@ -1,0 +1,303 @@
+/* Fixed text mixins */
+
+//
+// fix font sizes
+//
+$text-styles: (
+  title,
+  subtitle,
+  text,
+  subtext,
+  legend,
+  form
+);
+
+//
+// typography definition
+$typo-styles: (
+  title: (
+    xs: (
+      size: 4rem,     // font size
+      lh:   1.05em,   // line-height
+      ls:   0em,      // letter-spacing
+      align:left      // align
+    ),
+    sm: (
+      size:	4.8rem,
+      lh:		1.05em,
+      ls:   0em,
+      align:left
+    ),
+    md: (
+      size:	5.8rem,
+      lh:		1em,
+      ls:		0em,
+      align:left
+    ),
+    lg: (
+      size:	6rem,
+      lh:		1em,
+      ls:		0em,
+      align:left
+    ),
+    xl: (
+      size:	6.6rem,
+      lh:		1em,
+      ls:		0em,
+      align:left
+    ),
+  ),
+
+  subtitle: (
+    xs: (
+      size: 3rem,
+      lh:   1.15em,
+      ls:   0em,
+      align:left
+    ),
+    sm: (
+      size:	3.6rem,
+      lh:		1.15em,
+      ls:   0em,
+      align:left
+    ),
+    md: (
+      size:	4.2rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    ),
+    lg: (
+      size:	4.4rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    ),
+    xl: (
+      size:	4.8rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    )
+  ),
+
+  text: (
+    xs: (
+      size: 2rem,
+      lh:   1.25em,
+      ls:   0em,
+      align:left
+    ),
+    sm: (
+      size:	2.4rem,
+      lh:		1.25em,
+      ls:   0em,
+      align:left
+    ),
+    md: (
+      size:	3rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    ),
+    lg: (
+      size:	3.2rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    ),
+    xl: (
+      size:	3.4rem,
+      lh:		1.15em,
+      ls:		0em,
+      align:left
+    )
+  ),
+
+  subtext: (
+    xs: (
+      size: 1.6rem,
+      lh:   1.25em,
+      ls:   0.025em,
+      align:left
+    ),
+    sm: (
+      size:	1.8rem,
+      lh:		1.25em,
+      ls:   0.02em,
+      align:left
+    ),
+    md: (
+      size:	2.2rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    lg: (
+      size:	2.4rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    xl: (
+      size:	2.6rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    )
+  ),
+
+  legend: (
+    xs: (
+      size: 1.4rem,
+      lh:   1.25em,
+      ls:   0.025em,
+      align:left
+    ),
+    sm: (
+      size:	1.6rem,
+      lh:		1.25em,
+      ls:   0.02em,
+      align:left
+    ),
+    md: (
+      size:	1.8rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    lg: (
+      size:	2.0rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    xl: (
+      size:	2.0rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    )
+  ),
+
+  form: (
+    xs: (
+      size: 1.6rem,
+      lh:   1.25em,
+      ls:   0.025em,
+      align:left
+    ),
+    sm: (
+      size:	1.8rem,
+      lh:		1.25em,
+      ls:   0.02em,
+      align:left
+    ),
+    md: (
+      size:	2.2rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    lg: (
+      size:	2.4rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    ),
+    xl: (
+      size:	2.6rem,
+      lh:		1.25em,
+      ls:		0.015em,
+      align:left
+    )
+  )
+
+);
+
+
+// Variables for font mixin
+// -------------------------
+$fontsize:			map-get(map-get(map-get($typo-styles, text), md), size);
+$line-height:		map-get(map-get(map-get($typo-styles, text), md), lh);
+$letter-space:	map-get(map-get(map-get($typo-styles, text), md), ls);
+$align:         map-get(map-get(map-get($typo-styles, text), md), align);
+$style:         normal;
+$weight:				normal;
+$weight-bold:		bold;
+
+
+
+// Mixins
+// -------------------------
+//
+//
+// font definition
+@mixin font-def($size: $fontsize, $lh: $line-height, $ls: $letter-space, $al: $align, $mt: $lh, $mb: $lh) {
+  font-size: max($size, $min-font-size);
+  line-height: $lh;
+  letter-spacing: $ls;
+  text-align: $al;
+  @if ($mt != 0 or $mb != 0) {
+    margin: $mt 0 $mb;
+  }
+}
+
+//
+// set breakpoint aware font size for given text style.
+@mixin pxl-font-size($text-style: text, $teaser: false) {
+  $factor: if($teaser, $teaser-factor, 1);
+  $style: map-get($typo-styles, $text-style);
+
+  @each $breakpoint, $typo in $style {
+    @include media-breakpoint-up($breakpoint) {
+      font-size: map-get($typo, size)*$factor;
+    }
+  }
+}
+
+//
+// set font style with 0 top-margins
+@mixin pxl-font-style($text-style: text, $teaser: false){
+  font-family: $pxl-font;
+  font-weight: $weight;
+  font-style: $style;
+  $style: map-get($typo-styles, $text-style);
+  $factor: if($teaser, $teaser-factor, 1);
+
+  @each $breakpoint, $typo in $style {
+    @include media-breakpoint-up($breakpoint) {
+      @include font-def(
+          map-get($typo, size)*$factor,
+          map-get($typo, lh),
+          map-get($typo, ls)*$factor,
+          map-get($typo, align), 0
+      );
+    }
+
+  }
+}
+
+//
+// set font style with 0-margin
+@mixin pxl-font-plain-style ($text-style: text, $teaser: false) {
+  font-family: $pxl-font;
+  font-weight: $weight;
+  font-style: $style;
+  $style: map-get($typo-styles, $text-style);
+  $factor: if($teaser, $teaser-factor, 1);
+
+  @each $breakpoint, $typo in $style {
+    @include media-breakpoint-up($breakpoint) {
+      @include font-def(
+          map-get($typo, size)*$factor,
+          map-get($typo, lh),
+          map-get($typo, ls)*$factor,
+          map-get($typo, align), 0, 0
+      );
+    }
+  }
+}
+
+
+

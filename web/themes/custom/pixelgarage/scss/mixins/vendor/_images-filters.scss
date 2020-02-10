@@ -1,0 +1,53 @@
+/*
+ * Image filters mixins
+ */
+
+@mixin pxl-blur($radius:4px){
+    -webkit-filter: blur($radius);
+    filter: blur($radius);
+}
+
+@mixin pxl-brightness($value:0.30){
+    -webkit-filter: brightness($value);
+    filter: brightness($value);
+}
+
+@mixin pxl-contrast($value:180%){
+    -webkit-filter: contrast($value);
+    filter: contrast($value);
+}
+
+@mixin pxl-grayscale($value:100%){
+    -webkit-filter: grayscale($value);
+    filter: grayscale($value);
+}
+
+@mixin pxl-huerotate($value:180deg){
+    -webkit-filter: hue-rotate($value);
+    filter: hue-rotate($value);
+}
+
+@mixin pxl-invert($value:100%){
+    -webkit-filter: invert($value);
+    filter: invert($value);
+}
+
+@mixin pxl-opacity($value:50%){
+    -webkit-filter: opacity($value);
+    filter: opacity($value);
+}
+
+@mixin pxl-saturate($value:7){
+    -webkit-filter: saturate($value);
+    filter: saturate($value);
+}
+
+@mixin pxl-sepia($value:100%){
+    -webkit-filter: sepia($value);
+    filter: sepia($value);
+}
+
+@mixin pxl-shadow($value: 8px 8px 10px green){
+    -webkit-filter: drop-shadow($value);
+    filter: drop-shadow($value);
+}

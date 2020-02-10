@@ -1,0 +1,10 @@
+services:
+  stripe_checkout.stripe_checkout:
+    class: Drupal\stripe_checkout\StripeCheckoutService
+    arguments: ['@database', '@stripe_api.stripe_api']
+
+  stripe_checkout.webhook_subscriber:
+    class: Drupal\stripe_checkout\Event\StripeWebhookSubscriber
+    tags:
+      - {name: event_subscriber}
+

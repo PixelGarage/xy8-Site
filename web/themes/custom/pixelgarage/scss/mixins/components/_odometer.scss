@@ -1,0 +1,102 @@
+/*
+ *  Odometer component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$odometer-digit-size: 50px;
+$odometer-digit-small-size: 32px;
+
+// Mixins
+// -------------------------
+@mixin odometer($digit-size: $odometer-digit-size, $digit-small: $odometer-digit-small-size, $digit-border-radius: 0) {
+  .odometer-container {
+    margin: 0;
+    text-align: center;
+
+    .odometer-label {
+      @include pxl-font-plain-style(text);
+      font-weight: bold;
+    }
+
+    .odometer {
+      .odometer-inside {
+        font-family: $pxl-font;
+        font-weight: bold;
+        font-size: $digit-small;
+        line-height: 1.1;
+
+        .odometer-digit {
+          display: inline-block;
+          vertical-align: top;
+          margin: 0;
+          padding: 0;
+          width: auto; //($digit-small - 4);
+          height: ($digit-small + 2);
+          @include border-radius($digit-border-radius);
+
+          .odometer-digit-spacer {}
+
+          .odometer-digit-inner {
+            .odometer-ribbon {
+              .odometer-ribbon-inner {
+                .odometer-value {
+                  margin-top: 0;
+                  //padding-left: ($digit-small - 4) / 7;
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+
+        .odometer-formatting-mark {
+          display: inline-block;
+          margin: 0 3px 0 -1px;
+          width: 5px;
+        }
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      .odometer {
+        .odometer-inside {
+          font-size: $digit-size;
+
+          .odometer-digit {
+            width: ($digit-size - 6);
+            height: ($digit-size + 2);
+
+            .odometer-digit-inner {
+              .odometer-ribbon {
+                .odometer-ribbon-inner {
+                  .odometer-value {
+                    margin-top: 0;
+                    //padding-left: (@digit-size) / 7;
+                  }
+                }
+              }
+            }
+          }
+
+          .odometer-formatting-mark {
+            width: 6px;
+            margin: 0 10px 0 -1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin odometer-theme ($digit-color: #fff, $digit-bg: #000) {
+  .odometer-container .odometer .odometer-inside .odometer-digit {
+    color: $digit-color;
+    background-color: $digit-bg;
+  }
+  .odometer-container .odometer .odometer-inside .odometer-formatting-mark {
+    color: $digit-color;
+    background-color: transparent;
+  }
+
+  }

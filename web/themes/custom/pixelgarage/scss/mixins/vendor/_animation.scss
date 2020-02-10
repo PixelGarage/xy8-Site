@@ -1,0 +1,14 @@
+/* Animations and transition mixins */
+
+@mixin pxl-transition($transition...) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  transition: $transition;
+}
+
+@mixin pxl-animation($props...) {
+  -webkit-animation: $props;
+  -moz-animation: $props;
+  -o-animation: $props;
+  animation: $props;
+}

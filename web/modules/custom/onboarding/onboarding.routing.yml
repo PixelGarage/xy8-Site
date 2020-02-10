@@ -1,0 +1,38 @@
+onboarding.user:
+  path: '/onboarding/user/{uid}/{timestamp}/{hash}'
+  defaults:
+    _controller: '\Drupal\onboarding\Controller\OnboardingController::handleUserOnboardingProcess'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: true
+
+# alias to view onboarding_leads
+onboarding.user.collection:
+  path: '/admin/onboarding/leads'
+  defaults:
+    _route: view.onboarding_leads.page_1
+  requirements:
+    _permission: 'administer users'
+
+onboarding.user.start:
+  path: '/onboarding/user/start'
+  defaults:
+    _controller: '\Drupal\onboarding\Controller\OnboardingController::startUserOnboardingProcess'
+    _title: 'Start user on-boarding process'
+  requirements:
+    _permission: 'administer users'
+  options:
+    _admin_route: TRUE
+
+onboarding.user.complete:
+  path: '/onboarding/user/{user}/complete'
+  defaults:
+    _controller: '\Drupal\onboarding\Controller\OnboardingController::completeUserOnboardingProcess'
+    _title: 'Complete user on-boarding process'
+  requirements:
+    _permission: 'administer users'
+  options:
+    parameters:
+      user:
+        type: entity:user

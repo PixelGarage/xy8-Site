@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Contains hook and methods for the Stripe API module.
+ */
+
+use Drupal\Component\Serialization\Json;
+
+/**
+ * Makes a call to the Stripe API.
+ *
+ * @param string $obj
+ *   Stripe object. Can be a Charge, Refund, Customer, Subscription, Card, Plan,
+ *   Coupon, Discount, Invoice, InvoiceItem, Dispute, Transfer, TransferReversal,
+ *   Recipient, BankAccount, ApplicationFee, FeeRefund, Account, Balance, Event,
+ *   Token, BitcoinReceiver, FileUpload.
+ *
+ * @param string $method
+ *   Stripe object method. Common operations include retrieve, all, create,
+ *
+ * @param mixed $params
+ *   Additional params to pass to the method. Can be an array, string.
+ *
+ * @return Stripe\ApiResource
+ *   Returns the ApiResource or NULL on error.
+ */
+function stripe_api_call($obj, $method = NULL, $params = NULL) {
+  $obj = ucfirst($obj);
+  $class = '\\Stripe\\' . $obj;
+  if ($method) {
+    try {
+      return call_user_func([$class, $method], $params);
+    } catch (Exception $e) {
+      \Drupal::logger('stripe_api')->error('Error: @error <br /> @args', [
+        '@args' => Json::encode([
+          'object' => $obj,
+          'method' => $method,
+          'params' => $params,
+        ]),
+        '@error' => $e->getMessage(),
+      ]);
+      return NULL;
+    }
+  }
+  return $class;
+}

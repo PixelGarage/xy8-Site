@@ -1,0 +1,150 @@
+/*
+ *  Login form component
+ *  (see inc/login.inc for login form alteration)
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+//text
+
+
+// Mixins
+// -------------------------
+
+
+// General form settings
+// -------------------------
+#user_register_form,
+#user_login_form_form,
+#user-create-account,
+#user_pass_form {
+  clear: both;
+  float: none;
+  width: auto;
+}
+
+/* User login page */
+form#user-login-form {
+  position: relative;
+  border: none;
+  @include pxl-spacey(py, s1, section);
+}
+
+/* user login form */
+#user_login_form_form {
+  display: inline-block;
+  vertical-align: top;
+  @include pxl-spacey(pt, s1, column);
+  @include pxl-spacey(pb, s1, section);
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid $pxl-color-border;
+
+  @include media-breakpoint-up(lg) {
+    @include pxl-spacey(py, s1, column);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 50%;
+    border: 0;
+    border-right: 1px solid $pxl-color-border;
+  }
+
+  .form-item {
+    label {}
+
+    input.form-control {}
+
+    .description {
+      display: none;
+    }
+  }
+
+  .form-actions-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .forgot-password {
+      flex: 0 1000 auto;
+      margin: 0;
+      @include pxl-link-underline-on;
+    }
+
+    .form-actions {
+      button {
+        margin: 0 !important;
+      }
+    }
+  }
+
+}
+
+/* account register form */
+#user-create-account {
+  display: inline-block;
+  vertical-align: top;
+  @include pxl-spacey(pt, s1, section);
+  @include pxl-spacey(pb, s1, column);
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    @include pxl-spacey(py, s1, column);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 50%;
+  }
+
+  .form-actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+
+    .login-register {}
+  }
+
+}
+
+/* User register / password forms */
+#user-register-form,
+#user-pass {
+  display: inline-block;
+  max-width: 40em;
+  vertical-align: top;
+  @include pxl-spacey(py, s1, section);
+
+  .form-item {
+    label {}
+
+    input.form-control {}
+
+    .description {}
+  }
+
+  .form-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    button {
+      margin: 0 !important;
+    }
+
+    .back-to-login {
+      .login-account {
+        flex: 0 1000 auto;
+        margin: 0;
+        @include pxl-link-underline-on;
+      }
+
+      &:before {
+        @extend .fas;
+        display: inline;
+        content: fa-content($fa-var-reply);
+        text-align: center;
+        padding: 0.3em;
+      }
+    }
+  }
+}
+

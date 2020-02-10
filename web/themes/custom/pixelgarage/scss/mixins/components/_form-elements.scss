@@ -1,0 +1,773 @@
+/*
+ * Form element mixins
+ */
+
+// Variables for form elements
+// ---------------------------
+// typo distance
+$xs-dist:			map-get($grid-gutter-widths, xs);
+$sm-dist:			map-get($grid-gutter-widths, sm);
+$md-dist:			map-get($grid-gutter-widths, md);
+$lg-dist:			map-get($grid-gutter-widths, lg);
+$xl-dist:			map-get($grid-gutter-widths, xl);
+
+// Checkbox, Radio, Range thumb
+$xs-diameter:	$xs-dist * 1.8;
+$sm-diameter:	$sm-dist;
+$md-diameter:	$md-dist;
+$lg-diameter:	$lg-dist;
+$xl-diameter:	$xl-dist;
+
+// lines
+$line-thin:		0.2rem; // 2px
+$line-thick:	0.4rem; // 4px
+
+
+// placeholder definition
+$placeholder-fontsize: 1.4rem;
+$placeholder-color: $text-color-placeholder;
+$placeholder-ls: 0.025em;  // letter-spacing
+$placeholder-align: left;
+
+
+//
+// SVG arrows for input elements
+//
+// URL-Content
+$svg-url-start:				"url('data:image/svg+xml;charset=UTF-8,";
+$svg-url-end:				"')";
+
+
+// SVG select arrow
+$svg-select-arrow-1:		'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.48579 14.92441" preserveAspectRatio="xMinYMax meet"><polyline class="select-pfeil" points="0.329 0.328 14.243 14.267 28.157 0.328" style="fill:none;stroke:';
+$svg-select-arrow-2:		';stroke-miterlimit:10;stroke-width:1px"/></svg>';
+
+
+
+// Mixins
+// -------------------------
+//
+// Placeholder
+@mixin pxl-placeholder($size: $placeholder-fontsize, $ls: $placeholder-ls, $text-align: $placeholder-align){
+  // Chrome, Firefox, Opera, Safari 10.1+
+  ::placeholder {
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+    margin: 0;
+    font-variant-numeric: lining-nums tabular-nums;
+		font-size: $size;
+		letter-spacing: $ls;
+    text-align: $text-align;
+  }
+  // Internet Explorer 10+
+  :-ms-input-placeholder {
+    opacity: 1;
+    margin: 0;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: $size;
+    letter-spacing: $ls;
+    text-align: $text-align;
+  }
+  //  MS Edge
+  ::-ms-input-placeholder {
+    opacity: 1;
+    margin: 0;
+    font-variant-numeric: lining-nums tabular-nums;
+		font-size: $size;
+		letter-spacing: $ls;
+    text-align: $text-align;
+  }
+}
+
+@mixin pxl-placeholder-theme($color: $placeholder-color){
+  // Chrome, Firefox, Opera, Safari 10.1+
+  ::placeholder {
+    color: $color;
+  }
+  // Internet Explorer 10+
+  :-ms-input-placeholder {
+    color: $color;
+  }
+  //  MS Edge
+  ::-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+
+//
+// Buttons
+@mixin pxl-form-button () {
+  //
+  // submit button
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'] {
+    @include pxl-button;
+  }
+}
+
+//
+// Theme buttons
+@mixin pxl-form-button-theme ($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  //
+  // submit button
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'] {
+    @include pxl-button-theme($color: $form-nearcolor, $background-color: $form-theme-color, $border-color: $form-color, $hover-color: $form-color);
+  }
+
+}
+
+//
+// Form input fields
+@mixin pxl-form-input () {
+	input[type='date'],
+	input[type='datetime'],
+	input[type='datetime-local'],
+	input[type='email'],
+	input[type='month'],
+	input[type='number'],
+	input[type='password'],
+	input[type='search'],
+	input[type='tel'],
+	input[type='text'],
+	input[type='time'],
+	input[type='url'],
+	input[type='week'],
+  input[type='file'],
+	input:not([type]),
+	textarea {
+    @include pxl-formtext();
+		-webkit-appearance: none;
+    box-sizing: border-box;
+		display: block;
+		width: 100%;
+		padding: 1px 1px 0 10px;
+		-webkit-border-radius: 0;
+		border-radius: 0;
+		border: none;
+		font-variant-numeric: lining-nums tabular-nums;
+
+		&:active {
+			border: none;
+		}
+		&:focus, &:hover {
+			border: none;
+			outline: none;
+			padding: 0 0 0 9px;
+		}
+		&::-webkit-calendar-picker-indicator {
+			display: none;
+		}
+  }
+
+	// Fix Safari-Bug
+	input[type='search'] {
+		-webkit-appearance: textfield;
+	}
+
+  // placeholder
+  @include pxl-placeholder();
+
+}
+
+//
+// Theme for form input fields
+@mixin pxl-form-input-theme ($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  input[type='date'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='email'],
+  input[type='month'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='time'],
+  input[type='url'],
+  input[type='week'],
+  input[type='file'],
+  input:not([type]),
+  textarea {
+    color: $form-nearcolor;
+    border-bottom: 1px solid $form-color;
+    background-color: transparent;
+
+    &:focus, &:hover {
+      border: 1px solid $form-color;
+    }
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+  }
+
+  //placeholder theme
+  @include pxl-placeholder-theme($form-nearcolor);
+}
+
+
+//
+// Form checkbox
+@mixin pxl-form-checkbox () {
+	// label as container
+	.custom-checkbox {
+		display: block;
+		position: relative;
+    @include pxl-font-plain-style(form);
+    margin: 0.625em 0;
+    line-height: $xs-diameter;
+    height: $xs-diameter;
+    padding-left: $xs-diameter + 1rem;
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter;
+      line-height: $sm-diameter;
+			padding-left: $sm-diameter + 1rem;
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter;
+      line-height: $md-diameter;
+			padding-left: $md-diameter + 1rem;
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter;
+      line-height: $lg-diameter;
+			padding-left: $lg-diameter + 1.5rem;
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter;
+      line-height: $xl-diameter;
+			padding-left: $xl-diameter + 1.5rem;
+		}
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	// hide browser default
+	.custom-checkbox input {
+		position: absolute;
+		opacity: 0;
+		height: 0;
+		width: 0;
+		cursor: pointer;
+	}
+
+	// new checkbox
+  .custom-checkbox .checkmark {
+    box-sizing: content-box;
+		position: absolute;
+		top: 0;
+		left: 0;
+    height: $xs-diameter - ( 2 * $line-thin );
+    width: $xs-diameter - ( 2 * $line-thin );
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter - ( 2 * $line-thin );
+			width: $sm-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter - ( 2 * $line-thin );
+			width: $md-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter - ( 2 * $line-thin );
+			width: $lg-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter - ( 2 * $line-thin );
+			width: $xl-diameter - ( 2 * $line-thin );
+		}
+		border-radius: 50%;
+    border: $line-thin solid;
+	}
+
+	// checkbox hover color
+	.custom-checkbox:hover .checkmark {
+    height: $xs-diameter - ( 2 * $line-thick );
+    width: $xs-diameter - ( 2 * $line-thick );
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter - ( 2 * $line-thick );
+			width: $sm-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter - ( 2 * $line-thick );
+			width: $md-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter - ( 2 * $line-thick );
+			width: $lg-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter - ( 2 * $line-thick );
+			width: $xl-diameter - ( 2 * $line-thick );
+		}
+    border: $line-thick solid;
+	}
+
+}
+
+//
+// Theme form checkbox
+@mixin pxl-form-checkbox-theme ( $form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  // theme of checkbox
+
+  // new checkbox
+  .custom-checkbox .checkmark {
+    border-color: $form-color;
+  }
+
+  // checkbox hover color (supports bootstrap checkbox-group layout)
+  .custom-checkbox:hover input ~ .checkmark,
+  .custom-checkbox:hover input ~ label .checkmark {
+    border-color: $form-color;
+  }
+
+  // checkbox checked color (supports bootstrap checkbox-group layout)
+  .custom-checkbox input:checked ~ .checkmark,
+  .custom-checkbox input:checked ~ label .checkmark {
+    background-color: $form-color;
+  }
+}
+
+//
+// Form radio
+@mixin pxl-form-radio () {
+	// label as container
+  .custom-radio{
+    display: block;
+    position: relative;
+    @include pxl-font-plain-style(form);
+    margin: 0.625em 0;
+    line-height: $xs-diameter;
+    height: $xs-diameter;
+    padding-left: $xs-diameter + 1rem;
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter;
+      line-height: $sm-diameter;
+			padding-left: $sm-diameter + 1rem;
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter;
+      line-height: $md-diameter;
+			padding-left: $md-diameter + 1rem;
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter;
+      line-height: $lg-diameter;
+			padding-left: $lg-diameter + 1.5rem;
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter;
+      line-height: $xl-diameter;
+			padding-left: $xl-diameter + 1.5rem;
+		}
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	// hide browser default
+  .custom-radio input {
+		position: absolute;
+		opacity: 0;
+		height: 0;
+		width: 0;
+		cursor: pointer;
+	}
+
+	// new checkbox
+	.custom-radio .checkmark {
+    box-sizing: content-box;
+		position: absolute;
+		top: 0;
+		left: 0;
+    height: $xs-diameter - ( 2 * $line-thin );
+    width: $xs-diameter - ( 2 * $line-thin );
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter - ( 2 * $line-thin );
+			width: $sm-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter - ( 2 * $line-thin );
+			width: $md-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter - ( 2 * $line-thin );
+			width: $lg-diameter - ( 2 * $line-thin );
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter - ( 2 * $line-thin );
+			width: $xl-diameter - ( 2 * $line-thin );
+		}
+		border-radius: 50%;
+    border: $line-thin solid;
+	}
+
+	// checkbox hover color
+  .custom-radio:hover .checkmark {
+    height: $xs-diameter - ( 2 * $line-thick );
+    width: $xs-diameter - ( 2 * $line-thick );
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter - ( 2 * $line-thick );
+			width: $sm-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter - ( 2 * $line-thick );
+			width: $md-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter - ( 2 * $line-thick );
+			width: $lg-diameter - ( 2 * $line-thick );
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter - ( 2 * $line-thick );
+			width: $xl-diameter - ( 2 * $line-thick );
+		}
+    border: $line-thick solid;
+	}
+}
+
+//
+// Theme form radio
+@mixin pxl-form-radio-theme ($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  // theme checkbox
+  .custom-radio .checkmark {
+    border-color: $form-color;
+  }
+
+  // checkbox hover color (supports bootstrap checkbox-group layout)
+  .custom-radio:hover input ~ .checkmark,
+  .custom-radio:hover input ~ label .checkmark {
+    border-color: $form-color;
+  }
+
+  // checkbox checked color (supports bootstrap checkbox-group layout)
+  .custom-radio input:checked ~ .checkmark,
+  .custom-radio input:checked ~ label .checkmark {
+    background-color: $form-color;
+  }
+}
+
+//
+// Form select
+@mixin pxl-form-select () {
+  // reset to original look
+  select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+  }
+
+  // IE
+  select::-ms-expand {
+    display: none;
+  }
+
+  // select styling
+  select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 0 1px 0;
+    @include pxl-formtext();
+    font-variant-numeric: lining-nums tabular-nums;
+    border: none;
+    outline: none;
+    border-radius: 0;
+
+    &:focus, &:hover {
+      padding-bottom: 0;
+      cursor: pointer;
+    }
+  }
+
+	// position select container
+	.select-container {
+		position: relative;
+		width: auto;
+    padding-right: 29px;
+
+		@include media-breakpoint-up(sm) {
+			padding-right: 31px;
+		}
+		@include media-breakpoint-up(lg) {
+			padding-right: 33px;
+		}
+		@include media-breakpoint-up(xl) {
+			padding-right: 35px;
+		}
+	}
+
+
+	// define select arrow
+	.select-container::before {
+		display: inline-block;
+		position: absolute;
+    width: 24px;
+    height: 12px;
+    right: 0;
+    top: 0;
+
+    @include media-breakpoint-up(sm) {
+			width: 26px;
+			height: 13px;
+		}
+		@include media-breakpoint-up(lg) {
+			width: 28px;
+			height: 14px;
+		}
+		@include media-breakpoint-up(xl) {
+			width: 30px;
+			height: 15px;
+		}
+	}
+
+}
+
+//
+// Theme form select
+@mixin pxl-form-select-theme ($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  // select styling
+  select {
+    border-bottom: 1px solid $form-color;
+    background-color: transparent;
+    color: $form-nearcolor;
+
+    &:focus, &:hover {
+      border-bottom: 2px solid $form-color;
+    }
+  }
+
+  // define select arrow
+  .select-container::before {
+    content: unquote($svg-url-start) + unquote($svg-select-arrow-1) + $form-svgcolor + unquote($svg-select-arrow-2) + unquote($svg-url-end);
+  }
+
+}
+
+//
+// Form range
+@mixin pxl-form-range () {
+  //
+  // range control element
+	input[type=range] {
+		-webkit-appearance: none;
+		width: 100%;
+    margin: 0 0 $xs-diameter;
+    // firefox
+    line-height: 1px;
+		font-size: 0;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: $sm-diameter;
+    }
+    @include media-breakpoint-up(md) {
+      margin-bottom: $md-diameter;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-bottom: $lg-diameter;
+    }
+    @include media-breakpoint-up(xl) {
+      margin-bottom: $xl-diameter;
+    }
+
+    &:focus {
+      outline: none;
+    }
+	}
+
+  // Chrome, Opera, Safari 10.1+
+	input[type=range]::-webkit-slider-runnable-track {
+		width: 100%;
+		height: 1px;
+		box-shadow: none;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+  }
+
+	input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: $xs-diameter;
+    width: $xs-diameter;
+    margin-top: - $xs-diameter / 2;
+    box-shadow: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter;
+			width: $sm-diameter;
+			margin-top: - $sm-diameter / 2;
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter;
+			width: $md-diameter;
+			margin-top: - $md-diameter / 2;
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter;
+			width: $lg-diameter;
+			margin-top: - $lg-diameter / 2;
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter;
+			width: $xl-diameter;
+			margin-top: - $xl-diameter / 2;
+		}
+	}
+	
+	
+	// Firefox
+	input[type=range]::-moz-range-track {
+		width: 100%;
+		height: 1px;
+		border-radius: 1px;
+		border: none;
+    box-shadow: none;
+    cursor: pointer;
+	}
+	
+	input[type=range]::-moz-range-thumb {
+    height: $xs-diameter;
+    width: $xs-diameter;
+		box-shadow: none;
+		border: none;
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter;
+			width: $sm-diameter;
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter;
+			width: $md-diameter;
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter;
+			width: $lg-diameter;
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter;
+			width: $xl-diameter;
+		}
+		border-radius: 50%;
+		cursor: pointer;
+	}
+    
+  // IE, Edge
+	input[type=range]::-ms-track {
+		width: 100%;
+		height: 1px;
+		background: transparent;
+		border-color: transparent;
+		color: transparent;
+    cursor: pointer;
+	}
+	
+	input[type=range]::-ms-fill-lower {
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+  }
+	
+	input[type=range]::-ms-fill-upper {
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+  }
+	
+	input[type=range]::-ms-thumb {
+    height: $xs-diameter;
+    width: $xs-diameter;
+    box-shadow: none;
+		border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    @include media-breakpoint-up(sm) {
+			height: $sm-diameter;
+			width: $sm-diameter;
+		}
+		@include media-breakpoint-up(md) {
+			height: $md-diameter;
+			width: $md-diameter;
+		}
+		@include media-breakpoint-up(lg) {
+			height: $lg-diameter;
+			width: $lg-diameter;
+		}
+		@include media-breakpoint-up(xl) {
+			height: $xl-diameter;
+			width: $xl-diameter;
+		}
+	}
+	
+}
+
+//
+// Theme form range
+@mixin pxl-form-range-theme ($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  //
+  // range control element
+  // Chrome, Opera, Safari 10.1+
+  input[type=range]::-webkit-slider-runnable-track {
+    background: $form-color;
+
+    &:focus {
+      background: $form-color;
+    }
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    background: $form-color;
+  }
+
+
+  // Firefox
+  input[type=range]::-moz-range-track {
+    background: $form-color;
+  }
+
+  // IE, Edge
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  input[type=range]::-ms-fill-lower {
+    background: $form-color;
+
+    &:focus {
+      background: $form-color;
+    }
+  }
+
+  input[type=range]::-ms-fill-upper {
+    background: $form-color;
+
+    &:focus {
+      background: $form-color;
+    }
+  }
+
+  input[type=range]::-ms-thumb {
+    background: $form-color;
+  }
+
+}
+

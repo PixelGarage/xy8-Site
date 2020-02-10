@@ -1,0 +1,221 @@
+/*
+ *  Stripe button component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$form-control-height: 38px;
+
+
+// Mixins
+// -------------------------
+//
+// custom stripe button (form)
+@mixin stripe-button-form () {
+  display: inline-block;
+  margin: 1em 0;
+
+  form {
+    width: 100%;
+    white-space: nowrap;
+
+    .input-group {
+      display: inline-block;
+      vertical-align: bottom;
+      margin: 0 -2px;
+      padding: 0;
+      width: auto;
+      letter-spacing: 0;
+
+      .input-group-addon {
+        display: inline-block;
+        vertical-align: bottom;
+        padding: 6px 5px;
+        width: 60px;
+        @include pxl-font-plain-style(form);
+        font-weight: normal;
+      }
+
+      .form-item {
+        display: inline-block;
+        vertical-align: bottom;
+        padding: 0;
+        width: 70px;
+        text-align: right;
+
+        label {
+          display: none;
+        }
+
+        input.form-text {
+          margin-bottom: 0 !important;
+          padding: 6px 5px;
+          text-align: right !important;
+        }
+      }
+    }
+
+    button.form-submit {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    form {
+      .input-group {
+        .input-group-addon {
+          width: 80px;
+        }
+
+        .form-item {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+}
+
+//
+// stripe button predefined
+@mixin stripe-button() {
+  .stripe-button-container {
+    position:relative;
+    padding: 20px;
+    text-align: center;
+    @include border-radius(0);
+    background-color: white;
+    @include box-shadow($pxl-box-shadow);
+
+    .stripe-button-title {
+      @include pxl-leadtext();
+      text-align: center !important;
+    }
+
+    .stripe-button-text {
+      @include pxl-subtext();
+      text-align: center !important;
+    }
+
+    .stripe-button {
+      display: inline-block;
+
+      &.btn-error {
+        background-color: $pxl-color-error;
+      }
+
+      &[disabled] {
+        opacity: 1.0;
+      }
+    }
+
+    //
+    // stripe button custom form
+    .stripe-button-custom-form {
+      @include stripe-button-form();
+    }
+
+    // payment processing image
+    .stripe-payment-processing {
+      position: absolute;
+      @include pxl-center-horizontally();
+      bottom: 0;
+      max-height: 30px;
+      @include pxl-legend();
+
+      img {
+
+      }
+    }
+
+    //
+    // visible only when input is incorrect
+    .stripe-button-error {
+      @include pxl-legend();
+      color: $pxl-color-error !important;
+    }
+
+  }
+}
+
+//
+// stripe button fee percentage
+@mixin stripe-button-fee-percentages() {
+  .stripe-button-fee-percentages {
+    margin: 50px 0 20px;
+
+    .fee-text-top,
+    .fee-text-bottom {
+      @include pxl-text();
+      text-align: center !important;
+    }
+    .fee-text-bottom {
+      display: none;
+    }
+
+    .fee-radios-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      margin-bottom: 20px;
+
+      .fee-radio {
+        @include pxl-font-plain-style(legend);
+        width: 50px;
+        height: 50px;
+        padding: 15px 0;
+        margin: 0 $grid-gutter-width/2 0 0 !important;
+        text-align: center !important;
+        line-height: 20px !important;
+        @include border-radius(50%);
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        label {
+
+        }
+
+        @include media-breakpoint-up(md) {
+          width: 60px;
+          height: 60px;
+          padding: 20px 0;
+          line-height: 20px !important;
+        }
+      }
+    }
+
+    .fee-answer-wrapper {
+      margin-bottom: 20px;
+      @include pxl-text();
+      text-align: center !important;
+    }
+
+    .fee-text-stripe-fee {
+      @include pxl-legend;
+      text-align: center !important;
+    }
+  }
+}
+
+@mixin stripe-button-fee-percentages-theme($color, $background-color, $hover-color, $border-color) {
+  .stripe-button-fee-percentages {
+    .fee-radios-wrapper {
+      .fee-radio {
+        border: 1px solid $border-color;
+        color: $color;
+        background-color: transparent;
+
+        &:hover, &:focus, &.selected {
+          color: $background-color;
+          border: 1px solid $hover-color;
+          background-color: $hover-color;
+        }
+      }
+    }
+  }
+}

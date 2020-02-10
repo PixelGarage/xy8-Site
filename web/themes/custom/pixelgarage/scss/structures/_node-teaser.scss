@@ -1,0 +1,35 @@
+/*
+ *  Node teaser component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+// Mixins
+// -------------------------
+
+
+
+// General settings
+// -------------------------
+.node.node--view-mode-teaser {
+  &.row {
+    margin: 0;
+    @include pxl-html-element-maxwidth($teaser: true);
+
+    > [class*="col-"] {
+      position: relative;
+      padding: $grid-gutter-width / 2;
+
+      // typography
+      @include pxl-html-element-typo($teaser: true);
+
+      // teaser fields
+      @include teaser-field-picture;
+      @include teaser-field-decoration;
+      @include teaser-field-email;
+
+    }
+  }
+
+}

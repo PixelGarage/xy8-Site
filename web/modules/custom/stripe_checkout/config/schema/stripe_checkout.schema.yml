@@ -1,0 +1,46 @@
+# Schema for field formatter settings
+field.formatter.settings.stripe_checkout_button_fix:
+  type: mapping
+  label: 'Stripe checkout button - fixed value display format settings'
+  mapping:
+    recurring_billing:
+      type: string
+      label: 'Recurring billing'
+    box_title:
+      type: string
+      label: 'Box title'
+    box_text:
+      type: string
+      label: 'Box text'
+    name:
+      type: string
+      label: 'Name'
+    description:
+      type: string
+      label: 'Description'
+    currency:
+      type: string
+      label: 'Currency'
+    submit_type:
+      type: string
+      label: 'Submit type'
+    billing_address:
+      type: string
+      label: 'Enter billing address'
+
+field.formatter.settings.stripe_checkout_button_fee:
+  type: mapping
+  label: 'Stripe checkout button - App fee percentage display format settings'
+  mapping:
+    default_index:
+      type: integer
+      label: 'Default button index'
+    top_text:
+      type: string
+      label: 'Top text'
+    bottom_text:
+      type: string
+      label: 'Bottom text'
+    stripe_fee_text:
+      type: string
+      label: 'Stripe fee text'

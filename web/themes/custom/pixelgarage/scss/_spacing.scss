@@ -1,0 +1,126 @@
+/*
+ * Pixelgarage vertical spacing
+ *
+ * The vertical spacing for the grid and all HTML blocks
+ * --------------------------------------------------*/
+//
+//  Container
+//
+.container, .container-fluid {
+  @include pxl-space0(my);
+  @include pxl-space0(py);
+}
+
+//
+// Top-level blocks: Main, Article, ASide, Section
+//
+main, article, section, aside {
+  position: relative;
+
+  @include pxl-space0(my);
+  padding: 0;
+}
+
+//
+// Detail block
+//
+details {
+  position: relative;
+  margin: 0;
+  summary {
+
+  }
+}
+
+//
+// Dialog block
+//
+dialog {
+  position: relative;
+  margin: 0;
+}
+
+
+//
+// GRID
+//
+// Rows
+//
+.row {
+  @include pxl-space0(my);
+  @include pxl-space0(py);
+}
+
+//
+// Columns
+//
+.row > [class*="col-"] {
+  margin: 0;
+  @include pxl-space0(py);
+}
+
+//
+// Form elements in form
+form > *:first-child {
+  @include pxl-space0(mt);
+}
+form > *:last-child {
+  @include pxl-space0(mb);
+}
+
+
+//
+// Text blocks (blocks between text, e.g. paragraphs)
+//
+// images and embeds
+h1+img, .pxl-title+img,
+h2+img, .pxl-subtitle+img,
+p+img, .pxl-leadtext+img, .pxl-text+img,
+small+img, .marginal+img, .pxl-subtext+img, .legend+img,
+blockquote+img, .pxl-quote+img {
+  @include pxl-spacey(my, s1, section);
+}
+
+// forms
+p+form {
+  margin: 2rem 0;
+  @include pxl-space0(p);
+}
+
+//
+// Unordered lists
+p+ul, p+.unordered-list {
+  margin: 2rem 0;
+  @include pxl-space0(p);
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+//
+// ordered lists
+p+ol, p+.ordered-list {
+  margin: 2rem 0;
+  @include pxl-space0(p);
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+//
+// tables
+p+table {
+  margin: 2rem 0;
+  @include pxl-space0(p);
+
+  tr {
+    th {
+      padding: 0.5em;
+    }
+    td {
+      padding: 0.5em;
+    }
+  }
+}

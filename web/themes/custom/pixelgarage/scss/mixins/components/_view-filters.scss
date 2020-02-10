@@ -1,0 +1,60 @@
+/*
+ *  View filters component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+@mixin view-filter-definition {
+  @include pxl-spacey(py, s1, column);
+
+  form {
+    margin: 0;
+  }
+
+  .views-exposed-form {
+    .views-exposed-widgets {
+      margin: 0;
+      text-align: center;
+
+      .views-exposed-widget {
+        display: inline-block;
+        vertical-align: bottom;
+        float: none;
+        margin: 0 -2px;
+        padding: 0 0 $grid-gutter-width/2;
+
+        >label, >.description {
+          display: none;
+        }
+
+        .views-widget {
+          position: relative;
+
+          .form-item {
+            max-width: 100%;
+          }
+
+          .form-radios {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .radio {
+              margin: 0 $grid-gutter-width/2;
+            }
+          }
+        }
+
+        .form-control, .form-submit {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}
+

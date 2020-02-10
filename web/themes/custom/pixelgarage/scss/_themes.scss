@@ -1,0 +1,43 @@
+/* 
+ * Pixelgarage themes
+ * --------------------------------------------------*/
+
+// white black
+.theme-white-black {
+  @include theme-white-black;
+}
+
+// Gold black
+.theme-gold-black {
+  @include theme-gold-black;
+}
+
+// Gold white
+.theme-gold-white {
+	@include theme-gold-white;
+}
+
+
+// lightgray black
+.theme-lightgray-black {
+	@include theme-lightgray-black;
+}
+
+
+// darkgray white
+.theme-darkgray-white {
+	@include theme-darkgray-white;
+}
+
+// black lightgray
+.theme-black-lightgray {
+	@include theme-black-lightgray;
+}
+
+
+// black gold
+.theme-black-gold {
+	@include theme-black-gold;
+}
+
+

@@ -1,0 +1,18 @@
+{
+  "name": "pixelgarage/onboarding",
+  "type": "drupal-custom-module",
+  "description": "Implements an onboarding process with webforms.",
+  "keywords": ["Drupal", "Onboarding", "Webform"],
+  "authors": [
+    {
+      "name": "Ralph Moser",
+      "homepage": "https://pixelgarage.ch",
+      "role": "Maintainer"
+    }
+  ],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/webform": "^5.8"
+  }
+}

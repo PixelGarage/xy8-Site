@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+global $pixelgarage_path;
+$pixelgarage_path = drupal_get_path('theme', 'pixelgarage');
+
+include_once($pixelgarage_path . '/includes/alter.inc');        // all alter hooks
+include_once($pixelgarage_path . '/includes/preprocess.inc');   // all preprocess overrides
+include_once($pixelgarage_path . '/includes/process.inc');      // all process overrides
+include_once($pixelgarage_path . '/includes/theme.inc');        // all theme overrides
+include_once($pixelgarage_path . '/includes/login.inc');        // alters login forms
+
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ * 
+ * Example on how to alter theme settings form
+ * 
+ */
+function pixelgarage_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  //
+  // alter navbar settings
+  unset($form['components']['navbar']['bootstrap_barrio_navbar_top_position']);
+  unset($form['components']['navbar']['bootstrap_barrio_navbar_position']);
+
+  $form['components']['navbar']['bootstrap_barrio_navbar_container'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Navbar with Container'),
+    '#description' => t('Check if Navbar contains a container.'),
+    '#default_value' => theme_get_setting('bootstrap_barrio_navbar_container'),
+    '#weight' => -10,
+  ];
+  $form['components']['navbar']['bootstrap_barrio_header_position'] = [
+    '#type' => 'select',
+    '#title' => t('Header Position'),
+    '#description' => t('Select your header position.'),
+    '#default_value' => theme_get_setting('bootstrap_barrio_header_position'),
+    '#options' => [
+      'fixed-top' => t('Fixed Top'),
+      'fixed-bottom' => t('Fixed Bottom'),
+      'sticky-top' => t('Sticky Top'),
+    ],
+    '#empty_option' => t('Normal'),
+    '#weight' => -5,
+  ];
+
+}

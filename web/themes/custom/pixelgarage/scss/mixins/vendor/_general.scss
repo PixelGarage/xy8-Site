@@ -1,0 +1,70 @@
+/*
+ * General mixins
+ */
+//
+// To prevent the mixins without parameter to be output into the css-file, use () in definition 
+@mixin pxl-no-list-style() {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+    
+//
+// Select box appearence
+//
+@mixin pxl-no-appearance(){
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+}
+
+//
+// Box modifications
+//
+@mixin pxl-border-radius($radius: 0){
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+  
+// Box sizing.
+@mixin pxl-box-sizing($size){
+    -webkit-box-sizing: $size;
+    -moz-box-sizing: $size;
+    box-sizing: $size;
+}
+
+// centers an element horizontally/vertically in its container (block with height)
+@mixin pxl-center($position: relative){
+    position: $position;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@mixin pxl-center-horizontally($position: relative){
+    position: $position;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+@mixin pxl-center-vertically($position: relative){
+    position: $position;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+// aligns an element vertically in its container (block with height)
+@mixin pxl-align-vertically($y){
+    position: relative;
+    top: $y;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

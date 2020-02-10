@@ -1,0 +1,22 @@
+{
+  "name": "pixelgarage/stripe_api",
+  "type": "drupal-custom-module",
+  "description": "Provides an integration to use the Stripe API library",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/stripe_api",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/stripe_api",
+    "source": "http://cgit.drupalcode.org/stripe_api"
+  },
+  "require": {
+    "stripe/stripe-php": "^6",
+    "drupal/key": "^1.3"
+  },
+  "extra": {
+      "branch-alias": {
+          "dev-master": "1.x-dev"
+      }
+  }
+}

@@ -1,0 +1,131 @@
+/* Responsive text mixins */
+
+// Variables
+// -------------------------
+$container-min-width: 576px;  // sm
+$container-max-width: 1200px; // xl
+
+
+//
+// typography definition
+$typo-styles: (
+  title: (
+    min:  4rem,     // min. font size
+    max:  6.6rem,   // max. font size
+    lh:   1em,      // line-height
+    ls:   0em,      // letter-spacing
+    align:left,     // align
+  ),
+
+  subtitle: (
+    min:  3rem,
+    max:  4.8rem,
+    lh:   1.15em,
+    ls:   0em,
+    align:left,
+  ),
+
+  text: (
+    min:  2rem,
+    max:  3.4rem,
+    lh:   1.2em,
+    ls:   0em,
+    align:left,
+  ),
+
+  subtext: (
+    min:  1.6rem,
+    max:  2.6rem,
+    lh:   1.25em,
+    ls:   0.02em,
+    align:left,
+  ),
+
+  legend: (
+    min:  1.4rem,
+    max:  2rem,
+    lh:   1.25em,
+    ls:   0.02em,
+    align:left,
+  ),
+
+  form: (
+    min:  1.6rem,
+    max:  2.6rem,
+    lh:   1.25em,
+    ls:   0.02em,
+    align:left,
+  ),
+
+);
+
+// Variables for font mixin
+// -------------------------
+$weight:				normal;
+$style:         normal;
+$weight-bold:		bold;
+$min-fontsize:	map-get(map-get($typo-styles, text), min);
+$max-fontsize:	map-get(map-get($typo-styles, text), max);
+$line-height:		map-get(map-get($typo-styles, text), lh);
+$letter-space:	map-get(map-get($typo-styles, text), ls);
+$align:         map-get(map-get($typo-styles, text), align);
+
+
+
+
+// Mixins
+// -------------------------
+//
+// responsive font size with minimum and maximum size (in px)
+@mixin pxl-font-size($text-style: text){
+  $style: map-get($typo-styles, $text-style);
+  $min-size: strip-unit(map-get($style, min))*$global-font-size;
+  $max-size: strip-unit(map-get($style, max))*$global-font-size;
+
+  // differences between min, max
+  $font-diff-size: strip-unit($max-size - $min-size);
+  $container-diff-size: strip-unit($container-max-width - $container-min-width);
+
+  // min font size
+  font-size: $min-size;
+
+  // start of responsive font size
+  @include media-breakpoint-up(sm) {
+    font-size: calc(#{$min-size} + #{$font-diff-size} * ((100vw - #{$container-min-width}) / #{$container-diff-size}));
+  }
+
+  // max.font size
+  @include media-breakpoint-up(xl) {
+    font-size: $max-size;
+  }
+}
+
+//
+// font definition
+@mixin font-def($text-style: text, $lh: $line-height, $ls: $letter-space, $al: $align, $mt: $lh, $mb: $lh) {
+  font-family: $pxl-font;
+  font-weight: $weight;
+  font-style: $style;
+  line-height: $lh;
+  letter-spacing: $ls;
+  text-align: $al;
+  @if ($mt != 0 or $mb != 0) {
+    margin: $mt 0 $mb;
+  }
+  @include pxl-font-size($text-style);
+}
+
+//
+// set font style with y-margins
+@mixin pxl-font-style($text-style: text){
+  $style: map-get($typo-styles, $text-style);
+  @include font-def($text-style, map-get($style, lh), map-get($style, ls), map-get($style, align));
+}
+
+//
+// set font style with 0-margin
+@mixin pxl-font-plain-style ($text-style: text) {
+  $style: map-get($typo-styles, $text-style);
+  @include font-def($text-style, map-get($style, lh), map-get($style, ls), map-get($style, align), 0, 0);
+}
+

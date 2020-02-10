@@ -1,0 +1,153 @@
+/*
+ *  ShareThis component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$ss-font-path: "#{$pxl-font-path}/ss-social";
+$ss-sub-font: "Circle"; // supported sub-fonts are "Circle" and "Regular"
+$ss-sub-font-hover: "Regular";
+
+$pxl-share-color: $text-color;
+$pxl-share-align: left;
+$pxl-share-icon-size: 40px;
+
+// Social icon Fonts
+// -------------------------
+@font-face {
+  font-family: "SSSocial-Circle";
+  src: url('#{$ss-font-path}/ss-social-circle.eot');
+  src: url('#{$ss-font-path}/ss-social-circle.eot?#iefix') format('embedded-opentype'),
+  url('#{$ss-font-path}/ss-social-circle.woff') format('woff'),
+  url('#{$ss-font-path}/ss-social-circle.ttf') format('truetype'),
+  url('#{$ss-font-path}/ss-social-circle.svg#SSSocialCircle') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SSSocial-Regular";
+  src: url('#{$ss-font-path}/ss-social-regular.eot');
+  src: url('#{$ss-font-path}/ss-social-regular.eot?#iefix') format('embedded-opentype'),
+  url('#{$ss-font-path}/ss-social-regular.woff') format('woff'),
+  url('#{$ss-font-path}/ss-social-regular.ttf') format('truetype'),
+  url('#{$ss-font-path}/ss-social-regular.svg#SSSocialRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+// Mixins
+// -------------------------
+@mixin ss-social($sub-font) {
+  font-family: "SSSocial-#{$sub-font}";
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  white-space: nowrap;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+// General settings
+// -------------------------
+//
+// Add2Any buttons floating
+@mixin block-a2a-social-buttons() {
+  .a2a_kit.addtoany_list {
+    display: block;
+    text-align: center;
+
+    &.a2a_floating_style {
+      display: none;
+      @include pxl-center-vertically(fixed);
+      right: 0;
+      @include pxl-border-radius(5);
+      @include border-right-radius(0);
+
+      @include media-breakpoint-up(md) {
+        display: block;
+      }
+    }
+
+    &.a2a_vertical_style {}
+    &.a2a_horizontal_style {}
+
+    a {
+      margin: 0 0 1rem;
+      padding: 0 5px;
+
+      >span {
+        width: $pxl-share-icon-size;
+        height: $pxl-share-icon-size;
+        line-height: $pxl-share-icon-size;
+        font-size: ($pxl-share-icon-size - 4px);
+      }
+
+      .a2a_label {
+        display: none;
+      }
+
+      .a2a_svg {
+        @include ss-social($ss-sub-font);
+        width: $pxl-share-icon-size;
+        height: $pxl-share-icon-size;
+        font-size: ($pxl-share-icon-size - 4px);
+        text-align: center;
+        line-height: $pxl-share-icon-size;
+
+        &:hover {
+          @include ss-social($ss-sub-font-hover);
+          opacity: 1.0;
+        }
+
+        &:before {
+          display: inline-block;
+          vertical-align: text-bottom;
+        }
+
+      }
+
+      &.a2a_button_facebook {
+        .a2a_svg:before {
+          content: "\f610";
+        }
+      }
+      &.a2a_button_twitter {
+        .a2a_svg:before {
+          content: "\f611";
+        }
+      }
+      &.a2a_button_google_plus {
+        .a2a_svg:before {
+          content: "\f613";
+        }
+      }
+      &.a2a_button_email {
+        .a2a_svg:before {
+          content:'✉'
+        }
+      }
+      &.a2a_button_pinterest {
+        .a2a_svg:before {
+          content: "\f650";
+        }
+      }
+    }
+  }
+}
+
+@mixin block-a2a-social-buttons-theme($color, $background: transparent) {
+  .a2a_kit.addtoany_list.a2a_floating_style {
+    background: $background;
+  }
+  .a2a_kit.addtoany_list a .a2a_svg {
+    color: $color;
+    background: none !important;
+  }
+}

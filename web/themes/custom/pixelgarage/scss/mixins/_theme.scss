@@ -1,0 +1,193 @@
+/*
+ * Theme  mixins
+ */
+
+// Variables for mixin
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+// Theme
+@mixin pxl-theme( 	
+    $theme-color: $pxl-white, 
+    $color: $pxl-black, 
+    $nearcolor: $pxl-nearblack, 
+    $middlecolor: $pxl-middleblack, 
+    $palecolor: $pxl-paleblack,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-white,
+    $theme-svg-color: $pxl-black)
+{
+  //
+  // background and font color
+	background-color: $theme-color;
+  color: $nearcolor;
+
+  // links
+	a, .link {
+		@include pxl-link-theme($color: $nearcolor, $color-hover: $palecolor);
+	}
+  .link-underline-on {
+		@include pxl-link-underline-on-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+	}
+	.link-underline-off {
+		@include pxl-link-underline-off-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+  }
+
+  // links in elements
+  p, .p {
+		a, .link {
+			@include pxl-link-underline-on-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+		}
+	}
+	h1, h2, .h1, .h2 {
+		a, .link {
+			@include pxl-link-underline-on-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);//, $line-height: 2px, $line-dist: -4px);
+		}
+	}
+
+  // headlines
+	h1.headline, h2.headline, p.headline, .h1.headline, .h2.headline, .p.headline {
+		@include pxl-headline-theme($background: $theme-headline-background, $typo: $theme-headline-typo)
+  }
+
+  // form elements
+	@include pxl-form-input-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+	@include pxl-form-checkbox-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+	@include pxl-form-radio-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+	@include pxl-form-select-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+	@include pxl-form-button-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+  @include pxl-form-range-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+
+  // fields
+  @include pxl-all-buttons-theme ($theme-color: $theme-color, $color: $color, $nearcolor: $nearcolor, $middlecolor: $middlecolor, $palecolor: $palecolor, $svgcolor: $theme-svg-color);
+  @include teaser-field-email-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+  @include field-links-theme($color: $nearcolor, $background-color: $theme-color, $hover-color: $color, $border-color: $color);
+  @include odometer-theme ($digit-color: $theme-color, $digit-bg: $color);
+  @include stripe-button-fee-percentages-theme($color: $nearcolor, $background-color: $theme-color, $hover-color: $color, $border-color: $color);
+  @include field-footer-menu-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+  @include fieldset-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+  @include form-field-wrapper-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+  @include webform-field-wrapper-theme($form-theme-color: $theme-color, $form-color: $color, $form-nearcolor: $nearcolor, $form-middlecolor: $middlecolor, $form-palecolor: $palecolor, $form-svgcolor: $theme-svg-color);
+  // components
+  @include pxl-datepicker-theme($color: $nearcolor, $background-color: $theme-color, $border-color: $nearcolor);
+  @include block-follow-links-theme($color: $nearcolor, $hover-color: $pxl-color-main);
+  @include block-a2a-social-buttons-theme($color: $pxl-color-main);
+  @include block-locale-language-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor, $color-disabled: $palecolor);
+  // structured components
+  @include main-menues-theme($color: $nearcolor, $color-hover: $nearcolor, $line-color: $middlecolor);
+  @include view-tabs-theme($color: $nearcolor, $background-color: $theme-color, $hover-color: $color, $border-color: $color);
+  @include view-pager-theme($color: $nearcolor, $background-color: $theme-color, $hover-color: $color, $border-color: $color);
+  @include pe-grid-item-theme($color: $nearcolor);
+
+  // structures
+  @include bs-carousel-theme($color: $nearcolor, $background-color: $theme-color, $border-color: $color);
+  @include bs-accordion-theme($color: $nearcolor, $background: transparent);
+
+}
+
+
+// white black
+@mixin theme-white-black {
+  @include pxl-theme(
+    $theme-color: $pxl-white,
+    $color: $pxl-black,
+    $nearcolor: $pxl-nearblack,
+    $middlecolor: $pxl-middleblack,
+    $palecolor: $pxl-paleblack,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-white,
+    $theme-svg-color: $pxl-black-svg
+  )
+}
+
+// Gold black
+@mixin theme-gold-black {
+  @include pxl-theme(
+    $theme-color: $pxl-gold,
+    $color: $pxl-black,
+    $nearcolor: $pxl-nearblack,
+    $middlecolor: $pxl-middleblack,
+    $palecolor: $pxl-paleblack,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-white,
+    $theme-svg-color: $pxl-black-svg
+  )
+}
+
+// Gold white
+@mixin theme-gold-white {
+  @include pxl-theme(
+    $theme-color: $pxl-gold,
+    $color: $pxl-white,
+    $nearcolor: $pxl-white,
+    $middlecolor: $pxl-white,
+    $palecolor: $pxl-white,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-white,
+    $theme-svg-color: $pxl-white-svg
+  )
+}
+
+
+// lightgray black
+@mixin theme-lightgray-black {
+  @include pxl-theme(
+    $theme-color: $pxl-lightgray,
+    $color: $pxl-black,
+    $nearcolor: $pxl-nearblack,
+    $middlecolor: $pxl-middleblack,
+    $palecolor: $pxl-paleblack,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-white,
+    $theme-svg-color: $pxl-black-svg
+  )
+}
+
+
+// darkgray white
+@mixin theme-darkgray-white {
+  @include pxl-theme(
+    $theme-color: $pxl-darkgray,
+    $color: $pxl-white,
+    $nearcolor: $pxl-nearwhite,
+    $middlecolor: $pxl-middlewhite,
+    $palecolor: $pxl-palewhite,
+    $theme-headline-background: $pxl-black,
+    $theme-headline-typo: $pxl-nearwhite,
+    $theme-svg-color: $pxl-white-svg
+  )
+}
+
+// black lightgray
+@mixin theme-black-lightgray {
+  @include pxl-theme(
+    $theme-color: $pxl-black,
+    $color: $pxl-lightgray,
+    $nearcolor: $pxl-nearlightgray,
+    $middlecolor: $pxl-middlelightgray,
+    $palecolor: $pxl-palelightgray,
+    $theme-headline-background: $pxl-lightgray,
+    $theme-headline-typo: $pxl-black,
+    $theme-svg-color: $pxl-lightgray-svg
+  )
+}
+
+
+// black gold
+@mixin theme-black-gold {
+  @include pxl-theme(
+    $theme-color: $pxl-black,
+    $color: $pxl-gold,
+    $nearcolor: $pxl-gold,
+    $middlecolor: $pxl-gold,
+    $palecolor: $pxl-gold,
+    $theme-headline-background: $pxl-gold,
+    $theme-headline-typo: $pxl-black,
+    $theme-svg-color: $pxl-gold-svg
+  )
+}
+
+

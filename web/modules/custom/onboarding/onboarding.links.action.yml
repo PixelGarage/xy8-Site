@@ -1,0 +1,6 @@
+onboarding.user.start:
+  route_name: onboarding.user.start
+  title: 'Add lead'
+  appears_on:
+    - onboarding.user.collection
+    - view.onboarding_leads.page_1

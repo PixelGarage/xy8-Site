@@ -1,0 +1,137 @@
+/*
+ * Link element mixins
+ */
+
+// Variables for mixin
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+// Link
+@mixin pxl-link($decoration: $link-decoration, $decoration-hover: $link-decoration-hover) {
+	position: relative;
+  cursor: pointer;
+  outline: none;
+	text-decoration: $decoration;
+	border-bottom: none;
+  
+	&:link, &:visited {
+    outline: none;
+		text-decoration: $decoration;
+	}
+	&:hover, &:active, &.active {
+    outline: none;
+		text-decoration: $decoration-hover;
+	}
+}
+
+@mixin pxl-link-theme( $color: $link-color, $color-hover: $link-color-hover) {
+  color: $color;
+
+  &:link, &:visited {
+    color: $color;
+  }
+  &:hover, &:active, &.active {
+    color: $color-hover;
+  }
+}
+
+
+// Link underline, visible
+@mixin pxl-link-underline-on (
+    $line-height: 1px,
+    $line-dist: -2px, 
+    $line-width: 100%,
+    $decoration: $link-decoration,
+    $decoration-hover: $link-decoration-hover) {
+	position: relative;
+	cursor: pointer;
+  outline: none;
+	text-decoration: $decoration;
+	border-bottom: none;
+  
+	&:after {
+		content: "";
+		position: absolute;
+		width: $line-width;
+		height: $line-height;
+		bottom: $line-dist;
+		left: -($line-width - 100%)/2;
+    visibility: visible;
+    @include pxl-transform(scaleX(1));
+    @include pxl-transition(all 0.2s ease-in-out 0s);
+	}
+	&:hover, &:active, &.active {
+    outline: none;
+		text-decoration: $decoration-hover;
+	}
+	&:hover:after, &:visited:hover:after {
+		visibility: hidden;
+    @include pxl-transform(scaleX(0));
+	}
+}
+
+@mixin pxl-link-underline-on-theme (
+    $color: $link-color,
+    $color-hover:  $link-color-hover,
+    $line-color: $pxl-nearblack) {
+  color: $color;
+
+  &:after {
+    background-color: $line-color;
+  }
+  &:hover, &:active, &.active {
+    color: $color-hover;
+  }
+}
+
+
+// Link unterline, on hover visible
+@mixin pxl-link-underline-off ( 
+    $line-height: 1px,
+    $line-dist: -2px, 
+    $line-width: 100%,
+    $decoration: $link-decoration,
+    $decoration-hover: $link-decoration-hover) {
+	position: relative;
+	cursor: pointer;
+  outline: none;
+	text-decoration: $decoration;
+	border-bottom: none;
+  
+	&:after {
+		content: "";
+		position: absolute;
+		width: $line-width;
+		height: $line-height;
+		bottom: $line-dist;
+		left: -($line-width - 100%)/2;
+		visibility: hidden;
+    @include pxl-transform(scaleX(0));
+    @include pxl-transition(all 0.2s ease-in-out 0s);
+	}
+	&:hover, &:active, &.active {
+    outline: none;
+		text-decoration: $decoration-hover;
+	}
+	&:hover:after, &:visited:hover:after {
+		visibility: visible;
+    @include pxl-transform(scaleX(1));
+	}
+}
+
+@mixin pxl-link-underline-off-theme (
+    $color: $link-color,
+    $color-hover:  $link-color-hover,
+    $line-color: $pxl-nearblack ) {
+  color: $color;
+
+  &:after {
+    background-color: $line-color;
+  }
+  &:hover, &:active, &.active {
+    color: $color-hover;
+  }
+}

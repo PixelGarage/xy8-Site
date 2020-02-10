@@ -1,0 +1,63 @@
+/*
+ *  CKEditor styles
+ * --------------------------------------------------*/
+@import "variables";
+@import "fonts";
+@import "../../../../../libraries/bootstrap/scss/mixins/breakpoints";
+@import "mixins/typography/text";
+
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+
+
+// Main settings
+// -------------------------
+.pxl-title {
+  margin: 20px auto;
+  @include pxl-title();
+  color: $text-color;
+}
+
+.pxl-subtitle {
+  @include pxl-subtitle();
+  color: $text-color;
+}
+
+.pxl-leadtext {
+  @include pxl-leadtext();
+  color: $text-color;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.pxl-normal, .pxl-text {
+  @include pxl-text();
+  color:$text-color;
+}
+
+small, .pxl-subtext {
+  @include pxl-subtext();
+  color: $text-color;
+}
+
+.legend, .pxl-legend {
+  @include pxl-legend();
+  color: $text-color;
+}
+
+blockquote, .pxl-quote {
+  @include pxl-quote();
+  color: $text-color;
+}
+
+.headline {
+  display: inline-block;
+  color: white;
+  background-color: black;
+}

@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a Stripe fee percentages field.
+ *
+ * Available variables are:
+ * - field_id:              field id
+ * - fee_items:             all fee percentages to be displayed as radio buttons
+ * - default_button_index:  default index of radio button to be selected
+ * - top_text:              text displayed above radio buttons
+ * - bottom_text:           text displayed below radio buttons
+ * - stripe_fee_text:       text displayed to declare the Stripe fees
+ *
+ * @see template_preprocess_stripe_button_fee_percentage()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div id="{{ field_id }}" class="stripe-button-fee-percentages">
+    <!-- The fee section -->
+    <div class="fee-text-top">{{ top_text }}</div>
+    <div class="fee-radios-wrapper">
+      {% for fee in fee_items %}
+        <div class="fee-radio fee-radio-{{ loop.index0 }}{{ default_button_index == loop.index0 ? ' selected' }}" data-fee-value="{{ fee }}">
+          <label>{{ fee * 100 }}%</label>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="fee-text-bottom">{{ bottom_text }}</div>
+    <div class="fee-answer-wrapper">{{ answer_text }}</div>
+    <div class="fee-text-stripe-fee">{{ stripe_fee_text }}</div>
+</div>

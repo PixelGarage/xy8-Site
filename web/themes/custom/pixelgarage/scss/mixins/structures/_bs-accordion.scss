@@ -1,0 +1,67 @@
+/*
+ *  bs-accordion component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+@mixin bs-accordion() {
+  margin: 0;
+
+  .panel {
+    border: none;
+    background: transparent none;
+    @include box-shadow(none);
+
+    .panel-heading {
+      padding: 0 0 10px;
+
+      .panel-title {
+        a {
+          text-decoration: none;
+
+          span.fa {
+            margin: 0 10px;
+          }
+
+          &:hover, &.active {
+            text-decoration: none;
+
+            span.fa {
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .panel-collapse {
+      padding: 20px;
+
+      .panel-body {
+        padding: 0 0 20px;
+        border: none;
+
+      }
+    }
+  }
+}
+
+@mixin bs-accordion-theme($color, $background: transparent) {
+  .panel .panel-heading {
+    background-color: $background;
+
+    .panel-title {
+      a {
+        @include pxl-link-underline-on;
+      }
+    }
+  }
+  .panel-collapse {
+    background-color: $background;
+  }
+
+}

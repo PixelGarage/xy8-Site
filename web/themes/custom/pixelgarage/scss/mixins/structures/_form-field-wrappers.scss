@@ -1,0 +1,36 @@
+/*
+ *  Form field wrapper component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$form-element-mb:		map-get(map-get(map-get($typo-styles, form), md), lh);
+
+// Mixins
+// -------------------------
+@mixin form-field-wrapper() {
+  .js-form-wrapper {
+    @include pxl-spacey(mb, s1);
+
+    .form__item {
+      label {
+        @include pxl-font-plain-style(form);
+        font-size: $min-font-size !important;
+        span.form-required {}
+      }
+
+      .description {
+        @include pxl-font-style(legend);
+        font-size: $min-font-size !important;
+        margin-top: -$form-element-mb !important; // set help text closer to form element
+      }
+    }
+  }
+
+}
+
+@mixin form-field-wrapper-theme($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  .form-wrapper.form-group .form__item .description {
+    color: $form-palecolor;
+  }
+}

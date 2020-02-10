@@ -1,0 +1,55 @@
+/*
+ *  Footer component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+
+
+
+// Main settings
+// -------------------------
+footer {
+  @include pxl-space0(py);
+  @include theme-black-lightgray;
+
+  .container, .container-fluid {
+    .node-footer {
+      .row {
+        > [class*="col-"]  {
+
+          //
+          // columns
+          &.col-menu, &.col-lang {
+            @include media-breakpoint-up(lg) {
+              margin-top: 36px;
+            }
+          }
+
+          //
+          // logo
+          .footer-logo {
+            display: none;
+            width: 100%;
+            max-width: 370px;
+            height: auto !important;
+
+            @include media-breakpoint-up(lg) {
+              display: inline-block;
+            }
+          }
+
+          //
+          // field
+          @include field-footer-contact;
+          @include field-footer-menu;
+          @include field-follow-buttons;
+        }
+      }
+    }
+  }
+}

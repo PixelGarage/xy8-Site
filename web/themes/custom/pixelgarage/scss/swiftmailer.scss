@@ -1,0 +1,21 @@
+/*
+ *  Webform mail styles
+ * --------------------------------------------------*/
+@import "variables";
+@import "fonts";
+
+// bootstrap variables and mixins
+@import "../../../../../libraries/bootstrap/scss/functions";
+@import "../../../../../libraries/bootstrap/scss/variables";
+@import "../../../../../libraries/bootstrap/scss/mixins";
+
+// PXL mixins and themes
+@import "mixins";
+@import "themes";
+
+// Mail rules
+// -------------------------
+.mail-body {
+  padding: 0;
+  @include pxl-wysiwyg-body();
+}

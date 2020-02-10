@@ -1,0 +1,206 @@
+/*
+ * Grid mixins
+ *
+ * Adapts the bootstrap grid system to a grid with breakpoint dependant gutter-widths.
+ * (See '$grid-gutter-widths' for breakpoint-dependant definition)
+ */
+//
+// container
+@mixin pxl-make-container($gutters: $grid-gutter-widths) {
+  position: relative;
+
+  @each $breakpoint, $gutter in $gutters {
+    $xgutter: $gutter * 2;
+
+    @include media-breakpoint-up($breakpoint) {
+      margin-right: $xgutter;
+      margin-left: $xgutter;
+
+      // full width children
+      & .full-width {
+        width: 100vw;
+        margin-right: -$xgutter;
+        margin-left: -$xgutter;
+        padding-right: $xgutter;
+        padding-left: $xgutter;
+
+        &.row {
+          padding-right: $xgutter*3/4;
+          padding-left: $xgutter*3/4;
+        }
+      }
+    }
+  }
+}
+
+//
+// Define max-width and spaces for a fluid container
+@mixin pxl-make-container-fluid-max-width($max-width: $container-fluid-max-width, $max-gutter: $container-fluid-max-gutter) {
+  @media (min-width: $max-width) {
+    $max-gutter: $max-gutter * 2;
+
+    // keep inner width of container, but set margin to auto
+    max-width: calc(#{$max-width} - #{$max-gutter} * 2);
+    margin-right: auto;
+    margin-left: auto;
+
+    & .full-width {
+      $m-space: calc((#{$max-width} - 100vw) / 2 - #{$max-gutter});
+      $p-space: calc((100vw - #{$max-width}) / 2 + #{$max-gutter});
+
+      &.row {
+        // if .row and .full-width are set on the same element, correct negative row margin by padding
+        $p-space: calc((100vw - #{$max-width}) / 2 + #{$max-gutter}*3/4);
+      }
+
+      width: 100vw;
+      margin-right: $m-space;
+      margin-left: $m-space;
+      padding-right: $p-space;
+      padding-left: $p-space;
+    }
+  }
+}
+
+//
+// For each breakpoint, define the maximum width and spaces of the container
+@mixin pxl-make-container-max-widths($max-widths: $container-max-widths, $gutters: $grid-gutter-widths) {
+  @each $breakpoint, $max-width in $max-widths {
+    @include media-breakpoint-up($breakpoint) {
+      $max-gutter: map_get($gutters, $breakpoint) * 2;
+
+      // keep inner width of container, but set margin to auto
+      max-width: calc(#{$max-width} - #{$max-gutter} * 2);
+      margin-right: auto;
+      margin-left: auto;
+
+      & .full-width {
+        $m-space: calc((#{$max-width} - 100vw) / 2 - #{$max-gutter});
+        $p-space: calc((100vw - #{$max-width}) / 2 + #{$max-gutter});
+
+        &.row {
+          // if .row and .full-width are set on the same element, correct negative row margin by padding
+          $p-space: calc((100vw - #{$max-width}) / 2 + #{$max-gutter}*3/4);
+        }
+
+        width: 100vw;
+        margin-right: $m-space;
+        margin-left: $m-space;
+        padding-right: $p-space;
+        padding-left: $p-space;
+      }
+    }
+  }
+}
+
+//
+// rows
+@mixin pxl-make-row($gutters: $grid-gutter-widths) {
+  display: flex;
+  flex-wrap: wrap;
+
+  @each $breakpoint, $gutter in $gutters {
+    @include media-breakpoint-up($breakpoint) {
+      margin-right: -$gutter / 2;
+      margin-left: -$gutter / 2;
+    }
+  }
+}
+
+
+//
+// columns
+//
+// Define base grid column for all breakpoints
+@mixin pxl-grid-column($gutters: $grid-gutter-widths) {
+  // Prevent columns from becoming too narrow when at smaller grid tiers by
+  // always setting `width: 100%;`. This works because we use `flex` values
+  // later on to override this initial width.
+  position: relative;
+  width: 100%;
+
+  @each $breakpoint, $gutter in $gutters {
+    @include media-breakpoint-up($breakpoint) {
+      padding-right: $gutter / 2;
+      padding-left: $gutter / 2;
+    }
+  }
+}
+
+// Define column width depending on size
+@mixin pxl-make-col($size, $columns: $grid-columns) {
+  flex: 0 0 percentage($size / $columns);
+  // Add a `max-width` to ensure content within each column does not blow out
+  // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+  // do not appear to require this.
+  max-width: percentage($size / $columns);
+}
+
+@mixin pxl-make-col-offset($size, $columns: $grid-columns) {
+  $num: $size / $columns;
+  margin-left: if($num == 0, 0, percentage($num));
+}
+
+
+//
+// define grid column classes
+@mixin pxl-make-grid-column-classes($columns: $grid-columns, $gutters: $grid-gutter-widths) {
+  //
+  // use only gutter breakpoints
+  @each $breakpoint in map-keys($gutters) {
+    // returns -{br}, e.g. for breakpoint sm --> -sm
+    $infix: breakpoint-infix($breakpoint);
+
+    // Allow columns to stretch full width below their breakpoints
+    @for $i from 1 through $columns {
+      .col#{$infix}-#{$i} {
+        @include pxl-grid-column($gutters);
+      }
+    }
+    .col#{$infix},
+    .col#{$infix}-auto {
+      @include pxl-grid-column($gutters);
+    }
+
+    @include media-breakpoint-up($breakpoint) {
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+      .col#{$infix} {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+      }
+      .col#{$infix}-auto {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%; // Reset earlier grid tiers
+      }
+
+      @for $i from 1 through $columns {
+        .col#{$infix}-#{$i} {
+          @include pxl-make-col($i, $columns);
+        }
+      }
+
+      //
+      // define order classes
+      .order#{$infix}-first { order: -1; }
+
+      .order#{$infix}-last { order: $columns + 1; }
+
+      @for $i from 0 through $columns {
+        .order#{$infix}-#{$i} { order: $i; }
+      }
+
+      //
+      // define offset-classes
+      // `$columns - 1` because offsetting by the width of an entire row isn't possible
+      @for $i from 0 through ($columns - 1) {
+        @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+          .offset#{$infix}-#{$i} {
+            @include pxl-make-col-offset($i, $columns);
+          }
+        }
+      }
+    }
+  }
+}

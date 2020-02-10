@@ -1,0 +1,8 @@
+name: 'Stripe Checkout'
+description: 'Provides Stripe button fields allowing to process credit card transaction via the Stripe Checkout service.'
+core: 8.x
+type: module
+package: Stripe
+dependencies:
+  - stripe_api
+

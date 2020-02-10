@@ -1,0 +1,175 @@
+/*
+ *  Main content component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+// Footer
+// -------------------------
+$pxl-footer-min-height: 400px;
+$pxl-footer-min-height-md: 200px;
+
+
+// Mixins
+// -------------------------
+// admin tabs
+@mixin admin_tabs() {
+  nav.tabs {
+    width: 100%;
+
+    ul.nav-tabs {
+      justify-content: flex-end;
+      margin: 20px 0 5px;
+
+      li.nav-item {
+        margin-bottom: -1px;
+        background: none;
+        border: 1px solid transparent;
+
+        a.nav-link {
+          padding: 5px 10px;
+          font-family: $font-family-monospace;
+          font-size: 1.2rem;
+          border-radius: 0;
+          border: none;
+        }
+
+        &.active, &:hover {
+          border: 1px solid $pxl-color-border;
+          border-bottom: none;
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+//
+// action links
+@mixin action_links() {
+  ul.action-links {
+    margin: 0;
+    li {
+      float: right;
+      a {
+        font-family: $font-family-monospace;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+//
+// alert messages
+@mixin status-messages() {
+  .alert-wrapper {
+    margin-top: 20px;
+
+    .alert {
+      @include pxl-font-plain-style(subtext);
+
+      &.alert-dismissible {
+        button {
+          border: none;
+          background: none;
+
+          &:hover, &:focus {
+            border: none;
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Rules
+// -------------------------
+//
+//  Pixelgarage CSS rules
+//
+html {
+  height: 100%;
+  font-size: $global-font-size;
+}
+
+
+body {
+  position: relative;
+  min-height: 100%;
+  // font smoothing
+  @include pxl-sharp-fonts;
+
+  //Trennung Manuell mit &shy;
+  @include pxl-hyphenate(manual);
+
+  // text font
+  @include pxl-font-plain-style();
+
+  // modal backdrop
+  @include pxl-modal-backdrop();
+
+  *:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  //
+  // fixed header
+  &.header-fixed-top #main-wrapper {
+    margin-top: $header-height;
+  }
+
+  #main-wrapper {
+    //
+    // keep footer at bottom
+    padding-bottom: $pxl-footer-min-height;
+    min-height: calc(100vh + #{$pxl-footer-min-height});
+
+    @include media-breakpoint-up(lg) {
+      padding-bottom: $pxl-footer-min-height-md;
+      min-height: calc(100vh + #{$pxl-footer-min-height-md});
+    }
+
+    //
+    // Drupal backend specific layout
+    .container, .container-fluid {
+      //
+      // system messages
+      @include status-messages();
+
+      //
+      // Admin tabs and action links
+      @include admin_tabs;
+
+      //
+      // action links
+      @include action_links;
+
+      >.row {
+        >main.col  { // column(s)
+          //
+          // main content region
+          .block-system-main-block {
+            padding: 0;
+          }
+        } // columns
+
+      }
+    }
+  } // main-container
+
+  //
+  // Footer at bottom
+  footer {
+    position: relative;
+    min-height: $pxl-footer-min-height;
+    margin-top: (-1 * $pxl-footer-min-height);
+
+    @include media-breakpoint-up(lg) {
+      margin-top: (-1 * $pxl-footer-min-height-md);
+      min-height: $pxl-footer-min-height-md;
+    }
+  }
+}

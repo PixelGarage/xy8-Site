@@ -1,0 +1,538 @@
+/*
+ * Utility mixins
+ *
+ * All margin and padding mixins depend on the $grid-gutter-widths map, which is the base for all spaces.
+ */
+//
+// Maps for columns and sections
+$space-sides: (mb: margin-bottom, mt: margin-top, my: margin-bottom-top, pb: padding-bottom, pt: padding-top, py: padding-bottom-top);
+
+$space-types: (default: d, column: col, section: s);
+
+$default-yspaces: ( // default vertical spaces
+  xs: (
+    mt: map-get($grid-gutter-widths, xs),
+    mb: map-get($grid-gutter-widths, xs),
+    pt: map-get($grid-gutter-widths, xs),
+    pb: map-get($grid-gutter-widths, xs),
+  ),
+  sm: (
+    mt: map-get($grid-gutter-widths, sm),
+    mb: map-get($grid-gutter-widths, sm),
+    pt: map-get($grid-gutter-widths, sm),
+    pb: map-get($grid-gutter-widths, sm),
+  ),
+  md: (
+    mt: map-get($grid-gutter-widths, md),
+    mb: map-get($grid-gutter-widths, md),
+    pt: map-get($grid-gutter-widths, md),
+    pb: map-get($grid-gutter-widths, md),
+  ),
+  lg: (
+    mt: map-get($grid-gutter-widths, lg),
+    mb: map-get($grid-gutter-widths, lg),
+    pt: map-get($grid-gutter-widths, lg),
+    pb: map-get($grid-gutter-widths, lg),
+  ),
+  xl: (
+    mt: map-get($grid-gutter-widths, xl),
+    mb: map-get($grid-gutter-widths, xl),
+    pt: map-get($grid-gutter-widths, xl),
+    pb: map-get($grid-gutter-widths, xl),
+  ),
+  xxl: (
+    mt: map-get($grid-gutter-widths, xxl),
+    mb: map-get($grid-gutter-widths, xxl),
+    pt: map-get($grid-gutter-widths, xxl),
+    pb: map-get($grid-gutter-widths, xxl),
+  ),
+);
+
+$col-yspaces: (  // column vertical spaces
+  xs: (
+    mt: map-get($grid-gutter-widths, sm) / 2, // 1rem,
+    mb: map-get($grid-gutter-widths, xs) / 2, // 0.5rem,
+    pt: map-get($grid-gutter-widths, xs) / 2, // 0.5rem,
+    pb: map-get($grid-gutter-widths, xs) / 2, // 0.5rem,
+  ),
+  sm: (
+    mt: map-get($grid-gutter-widths, sm) / 2,
+    mb: map-get($grid-gutter-widths, sm) / 2,
+    pt: map-get($grid-gutter-widths, sm) / 2,
+    pb: map-get($grid-gutter-widths, sm) / 2,
+  ),
+  md: (
+    mt: map-get($grid-gutter-widths, sm) / 2,
+    mb: map-get($grid-gutter-widths, md) / 2,
+    pt: map-get($grid-gutter-widths, md) / 2,
+    pb: map-get($grid-gutter-widths, md) / 2,
+  ),
+  lg: (
+    mt: map-get($grid-gutter-widths, sm) / 2,
+    mb: map-get($grid-gutter-widths, lg) / 2,
+    pt: map-get($grid-gutter-widths, lg) / 2,
+    pb: map-get($grid-gutter-widths, lg) / 2,
+  ),
+  xl: (
+    mt: map-get($grid-gutter-widths, sm) / 2,
+    mb: map-get($grid-gutter-widths, xl) / 2,
+    pt: map-get($grid-gutter-widths, xl) / 2,
+    pb: map-get($grid-gutter-widths, xl) / 2,
+  ),
+  xxl: (
+    mt: map-get($grid-gutter-widths, sm) / 2,
+    mb: map-get($grid-gutter-widths, xxl) / 2,
+    pt: map-get($grid-gutter-widths, xxl) / 2,
+    pb: map-get($grid-gutter-widths, xxl) / 2,
+  ),
+);
+
+$s-yspaces: ( // section vertical spaces
+  xs: (
+    mt: map-get($grid-gutter-widths, xs) * 4.5,
+    mb: map-get($grid-gutter-widths, xs) * 4.5, // 0.5 from column space
+    pt: map-get($grid-gutter-widths, xs) * 4.5,
+    pb: map-get($grid-gutter-widths, xs) * 4.5,
+  ),
+  sm: (
+    mt: map-get($grid-gutter-widths, sm) * 2.5,
+    mb: map-get($grid-gutter-widths, sm) * 2.5,
+    pt: map-get($grid-gutter-widths, sm) * 2.5,
+    pb: map-get($grid-gutter-widths, sm) * 2.5,
+  ),
+  md: (
+    mt: map-get($grid-gutter-widths, md) * 2.5,
+    mb: map-get($grid-gutter-widths, md) * 2.5,
+    pt: map-get($grid-gutter-widths, md) * 2.5,
+    pb: map-get($grid-gutter-widths, md) * 2.5,
+  ),
+  lg: (
+    mt: map-get($grid-gutter-widths, lg) * 2.5,
+    mb: map-get($grid-gutter-widths, lg) * 2.5,
+    pt: map-get($grid-gutter-widths, lg) * 2.5,
+    pb: map-get($grid-gutter-widths, lg) * 2.5,
+  ),
+  xl: (
+    mt: map-get($grid-gutter-widths, xl) * 2.5,
+    mb: map-get($grid-gutter-widths, xl) * 2.5,
+    pt: map-get($grid-gutter-widths, xl) * 2.5,
+    pb: map-get($grid-gutter-widths, xl) * 2.5,
+  ),
+  xxl: (
+    mt: map-get($grid-gutter-widths, xxl) * 2.5,
+    mb: map-get($grid-gutter-widths, xxl) * 2.5,
+    pt: map-get($grid-gutter-widths, xxl) * 2.5,
+    pb: map-get($grid-gutter-widths, xxl) * 2.5,
+  ),
+);
+
+
+//
+// FUNCTIONS
+//
+// Get the typed spaces for a given breakpoint
+@function pxl-get-typed-spaces($type, $breakpoint) {
+  @if ($type == default) {
+    @return map-get($default-yspaces, $breakpoint);
+  }
+  @else if ($type == column) {
+    @return map-get($col-yspaces, $breakpoint);
+  }
+  @else if ($type == section) {
+    @return map-get($s-yspaces, $breakpoint);
+  }
+}
+
+//
+// Get the base space for the given type
+@function pxl-get-type-base-space($type, $breakpoint, $gutters: $grid-gutter-widths) {
+  $gutter: map-get($gutters, $breakpoint);
+  @if ($type == default) { // default base space
+    @return $gutter;
+  }
+  @else if ($type == column) { // column base space
+    @return $gutter / 2;
+  }
+  @else if ($type == section) { // section base space
+    @return if($breakpoint == xs, 5 * $gutter, 3 * $gutter);
+  }
+}
+
+
+
+//
+// MIXINS
+//
+
+//
+// Defines 0-spaces for all given vertical sides.
+//
+@mixin pxl-space0($side) {
+  @if($side == m) { // margins
+    margin: 0 !important;
+  }
+  @else if($side == mb) {
+    margin-bottom: 0;
+  }
+  @else if($side == mt) {
+    margin-top: 0;
+  }
+  @else if($side == mbt or $side == my) {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  @else if($side == p) { // paddings
+    margin: 0;
+  }
+  @else if($side == pb) {
+    padding-bottom: 0;
+  }
+  @else if($side == pt) {
+    padding-top: 0;
+  }
+  @else if($side == pbt or $side == py) {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+//
+// Defines 0-margins for all given vertical sides for the given breakpoint upwards.
+//
+@mixin pxl-space0-up($breakpoint, $side) {
+  @include media-breakpoint-up($breakpoint) {
+    @include pxl-space0($side);
+  }
+}
+
+//
+// Defines 0-margins for all given vertical sides inside the given breakpoint range.
+//
+@mixin pxl-space0-only($breakpoint, $side) {
+  @include media-breakpoint-only($breakpoint) {
+    @include pxl-space0($side);
+  }
+}
+
+//
+// Defines all 0-space classes for the vertical sides globally, for all breakpoints upwards or inside the breakpoint range.
+//
+@mixin pxl-make-space0-classes($gutters: $grid-gutter-widths) {
+  //
+  // margins
+  .m0 {
+    margin: 0 !important;
+  }
+  .mb0 {
+    margin-bottom: 0 !important;
+  }
+  .mt0 {
+    margin-top: 0 !important;
+  }
+  .mbt0, .my0 {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+  //
+  // paddings
+  .p0 {
+    padding: 0 !important;
+  }
+  .pb0 {
+    padding-bottom: 0 !important;
+  }
+  .pt0 {
+    padding-top: 0 !important;
+  }
+  .pbt0, .py0 {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  // use only gutter breakpoints
+  @each $breakpoint in map_keys($gutters) {
+    // define spaces from breakpoint up
+    @include media-breakpoint-up($breakpoint) {
+      // margin classes
+      .#{$breakpoint}-up-m0 {
+        margin: 0 !important;
+      }
+      .#{$breakpoint}-up-mb0 {
+        margin-bottom: 0 !important;
+      }
+      .#{$breakpoint}-up-mt0 {
+        margin-top: 0 !important;
+      }
+      .#{$breakpoint}-up-mbt0, .#{$breakpoint}-up-my0 {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+      }
+      // padding classes
+      .#{$breakpoint}-up-p0 {
+        padding: 0 !important;
+      }
+      .#{$breakpoint}-up-pb0 {
+        padding-bottom: 0 !important;
+      }
+      .#{$breakpoint}-up-pt0 {
+        padding-top: 0 !important;
+      }
+      .#{$breakpoint}-up-pbt0, .#{$breakpoint}-up-py0 {
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+      }
+    }
+
+    // define spaces in breakpoint range
+    @include media-breakpoint-only($breakpoint) {
+      // margin classes
+      .#{$breakpoint}-m0 {
+        margin: 0 !important;
+      }
+      .#{$breakpoint}-mb0 {
+        margin-bottom: 0 !important;
+      }
+      .#{$breakpoint}-mt0 {
+        margin-top: 0 !important;
+      }
+      .#{$breakpoint}-mbt0, .#{$breakpoint}-my0 {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+      }
+      // padding classes
+      .#{$breakpoint}-p0 {
+        padding: 0 !important;
+      }
+      .#{$breakpoint}-pb0 {
+        padding-bottom: 0 !important;
+      }
+      .#{$breakpoint}-pt0 {
+        padding-top: 0 !important;
+      }
+      .#{$breakpoint}-pbt0, .#{$breakpoint}-py0 {
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+      }
+    }
+
+  }
+}
+
+
+
+//
+// y-Space mixins
+//
+// Defines vertical side paddings / margins for all breakpoints of a space type (html element type) with the given space factor.
+//
+@mixin pxl-spacey($side, $space, $type: default, $gutters: $grid-gutter-widths, $space-factors: $grid-space-factors) {
+  //
+  // get space factor
+  $factor: map-get($space-factors, $space);
+
+  @each $breakpoint, $gutter in $gutters {
+    $spaces: pxl-get-typed-spaces($type, $breakpoint);
+    $mb: map-get($spaces, mb);
+    $mt: map-get($spaces, mt);
+    $pb: map-get($spaces, pb);
+    $pt: map-get($spaces, pt);
+
+    @include media-breakpoint-up($breakpoint) {
+      @if($side == mb) {
+        margin-bottom: $mb * $factor;
+      }
+      @else if($side == mt) {
+        margin-top: $mt * $factor;
+      }
+      @else if($side == mbt or $side == my) {
+        margin-bottom: $mb * $factor;
+        margin-top: $mt * $factor;
+      }
+      @else if($side == pb) {
+        padding-bottom: $pb * $factor;
+      }
+      @else if($side == pt) {
+        padding-top: $pt * $factor;
+      }
+      @else if($side == pbt or $side == py) {
+        padding-bottom: $pb * $factor;
+        padding-top: $pt * $factor;
+      }
+    }
+  }
+}
+
+//
+// Defines vertical side space for the given breakpoint upwards with the given space factor.
+//
+@mixin pxl-yspace-up($breakpoint, $side, $space, $type: default, $gutters: $grid-gutter-widths, $space-factors: $grid-space-factors) {
+  //
+  // get base space for type and breakpoint
+  $base-space: pxl-get-type-base-space($type, $breakpoint, $gutters);
+  $factor: map-get($space-factors, $space);
+
+  @include media-breakpoint-up($breakpoint) {
+    @if($side == mb) {
+      margin-bottom: $base-space * $factor;
+    }
+    @else if($side == mt) {
+      margin-top: $base-space * $factor;
+    }
+    @else if($side == mbt or $side == my) {
+      margin-bottom: $base-space * $factor;
+      margin-top: $base-space * $factor;
+    }
+    @else if($side == pb) {
+      padding-bottom: $base-space * $factor;
+    }
+    @else if($side == pt) {
+      padding-top: $base-space * $factor;
+    }
+    @else if($side == pbt or $side == py) {
+      padding-bottom: $base-space * $factor;
+      padding-top: $base-space * $factor;
+    }
+  }
+}
+
+//
+// Define vertical side spaces for the given breakpoint range with a space factor.
+//
+@mixin pxl-yspace-only($breakpoint, $side, $space, $type: default, $gutters: $grid-gutter-widths, $space-factors: $grid-space-factors) {
+  //
+  // get base space for type and breakpoint
+  $base-space: pxl-get-type-base-space($type, $breakpoint, $gutters);
+  $factor: map-get($space-factors, $space);
+
+  @include media-breakpoint-only($breakpoint) {
+    @if($side == mb) {
+      margin-bottom: $base-space * $factor;
+    }
+    @else if($side == mt) {
+      margin-top: $base-space * $factor;
+    }
+    @else if($side == mbt or $side == my) {
+      margin-bottom: $base-space * $factor;
+      margin-top: $base-space * $factor;
+    }
+    @else if($side == pb) {
+      padding-bottom: $base-space * $factor;
+    }
+    @else if($side == pt) {
+      padding-top: $base-space * $factor;
+    }
+    @else if($side == pbt or $side == py) {
+      padding-bottom: $base-space * $factor;
+      padding-top: $base-space * $factor;
+    }
+  }
+}
+
+//
+// Define all vertical padding / margin classes for the given space type (HTML elements).
+//
+// col-mb-s1: the column bottom margin is defined with factor s1
+// col-sm-up-mbt-s2: the column margins bottom / top are defined with factor s2 for breakpoint sm upwards (576px +)
+// col-md-mt-s4: the column top margin is defined with factro s4 only for the range of breakpoint md (768px - 991px)
+//
+@mixin pxl-make-yspace-classes($type: default, $gutters: $grid-gutter-widths, $space-factors: $grid-space-factors) {
+  //
+  // get type prefix
+  $prefix: map-get($space-types, $type);
+
+  //
+  // define global margin classes
+  @each $space in map-keys($space-factors) {
+    .#{$prefix}-mb-#{$space} {
+      @include pxl-spacey(mb, $space, $type, $gutters, $space-factors);
+    }
+    .#{$prefix}-mt-#{$space} {
+      @include pxl-spacey(mt, $space, $type, $gutters, $space-factors);
+    }
+    .#{$prefix}-mbt-#{$space},
+    .#{$prefix}-my-#{$space} {
+      @include pxl-spacey(mbt, $space, $type, $gutters, $space-factors);
+    }
+    .#{$prefix}-pb-#{$space} {
+      @include pxl-spacey(pb, $space, $type, $gutters, $space-factors);
+    }
+    .#{$prefix}-pt-#{$space} {
+      @include pxl-spacey(pt, $space, $type, $gutters, $space-factors);
+    }
+    .#{$prefix}-pbt-#{$space},
+    .#{$prefix}-py-#{$space} {
+      @include pxl-spacey(pbt, $space, $type, $gutters, $space-factors);
+    }
+  }
+
+  //
+  // define specific breakpoint column margin classes
+  @each $breakpoint, $gutter in $gutters {
+    // returns -{br}, e.g. for breakpoint sm --> -sm
+    $infix: breakpoint-infix($breakpoint);
+    $base-space: pxl-get-type-base-space($type, $breakpoint, $gutters);
+
+    // define space classes for breakpoint up
+    @include media-breakpoint-up($breakpoint) {
+      @each $space, $factor in $space-factors {
+        // margin
+        .#{$prefix}#{$infix}-up-mb-#{$space} {
+          margin-bottom: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-up-mt-#{$space} {
+          margin-top: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-up-mbt-#{$space},
+        .#{$prefix}#{$infix}-up-my-#{$space} {
+          margin-bottom: $base-space * $factor;
+          margin-top: $base-space * $factor;
+        }
+        // padding
+        .#{$prefix}#{$infix}-up-pb-#{$space} {
+          padding-bottom: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-up-pt-#{$space} {
+          padding-top: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-up-pbt-#{$space},
+        .#{$prefix}#{$infix}-up-py-#{$space} {
+          padding-bottom: $base-space * $factor;
+          padding-top: $base-space * $factor;
+        }
+      }
+    }
+
+    // define margins in breakpoint range
+    @include media-breakpoint-only($breakpoint) {
+      @each $space, $factor in $space-factors {
+        // margin
+        .#{$prefix}#{$infix}-mb-#{$space} {
+          margin-bottom: $base-space * $factor !important;
+        }
+        .#{$prefix}#{$infix}-mt-#{$space} {
+          margin-top: $base-space * $factor !important;
+        }
+        .#{$prefix}#{$infix}-mbt-#{$space},
+        .#{$prefix}#{$infix}-my-#{$space} {
+          margin-bottom: $base-space * $factor !important;
+          margin-top: $base-space * $factor !important;
+        }
+        // padding
+        .#{$prefix}#{$infix}-pb-#{$space} {
+          padding-bottom: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-pt-#{$space} {
+          padding-top: $base-space * $factor;
+        }
+        .#{$prefix}#{$infix}-pbt-#{$space},
+        .#{$prefix}#{$infix}-py-#{$space} {
+          padding-bottom: $base-space * $factor;
+          padding-top: $base-space * $factor;
+        }
+      }
+    }
+
+  }
+}
+
+

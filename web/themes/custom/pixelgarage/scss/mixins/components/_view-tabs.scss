@@ -1,0 +1,57 @@
+/*
+ *  Tabs component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+@mixin view-tabs() {
+  .views-bootstrap-tab-plugin-style {
+    @include pxl-spacey(mt, s1, section);
+
+    //
+    // tabs
+    ul.nav {
+      display: flex;
+      justify-content: center;
+
+      li {
+        margin-right: $grid-gutter-width/2;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          @include pxl-button;
+        }
+      }
+    }
+
+    //
+    // tab content
+    .tab-content {
+      .tab-pane {
+        // see specific node content
+      }
+    }
+  }
+}
+
+@mixin view-tabs-theme($color, $background-color, $hover-color, $border-color) {
+  // view tabs button
+  .views-bootstrap-tab-plugin-style ul.nav > li > a {
+    border-color: $border-color;
+    color: $color;
+    background-color: transparent;
+
+    &:hover, &:active, &.active {
+      color: $background-color;
+      background-color: $hover-color;
+    }
+  }
+}

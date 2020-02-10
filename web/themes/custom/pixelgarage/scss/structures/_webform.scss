@@ -1,0 +1,17 @@
+/*
+ *  Webform component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$form-element-mb:		map-get(map-get(map-get($typo-styles, form), md), lh);
+
+
+// Mixins
+// -------------------------
+form.webform-submission-form {
+  @include pxl-spacey(py, s1, section);
+
+  @include webform-field-wrapper;
+  @include webform-actions-wrapper;
+}

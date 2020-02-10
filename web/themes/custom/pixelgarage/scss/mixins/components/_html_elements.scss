@@ -1,0 +1,350 @@
+/*
+ * HTML elements mixins
+ * --------------------------------------------------*/
+//
+// Typography of HTML elements
+//
+@mixin pxl-html-element-typo ($teaser:false) {
+  //
+  // Headers
+  h1, .pxl-title {
+    @include pxl-title($teaser);
+  }
+
+  h2, .pxl-subtitle {
+    @include pxl-subtitle($teaser);
+  }
+
+  h3, h4, h5, h6 {
+    @include pxl-font-plain-style(text, $teaser);
+    font-weight: bold;
+  }
+
+  //
+  // paragraphs, form, blockquote and small text
+  p, .pxl-text, .pxl-normal {
+    @include pxl-text($teaser);
+  }
+
+  // lead text in paragraphs
+  p.pxl-leadtext {
+    margin-bottom: $line-height;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  blockquote, .pxl-quote {
+    @include pxl-quote($teaser);
+  }
+
+  small, .marginal, .pxl-subtext {
+    @include pxl-subtext($teaser);
+  }
+
+  .legend, .pxl-legend {
+    @include pxl-legend($teaser);
+  }
+
+  //
+  // headlines
+  h1.headline, h2.headline, p.headline, .pxl-title.headline, .pxl-subtitle.headline, .pxl-text.headline {
+    display: flex;
+    flex-wrap: wrap;
+
+    span.headline-inner {
+      font-weight: bold;
+    }
+  }
+  h1.headline, .pxl-title.headline {
+    @include pxl-headline-style(h1, $teaser);
+  }
+  h2.headline, .pxl-subtitle.headline {
+    @include pxl-headline-style(h2, $teaser);
+  }
+  p.headline, .pxl-text.headline, .pxl-normal.headline{
+    @include pxl-headline-style(p, $teaser);
+  }
+
+  //
+  // Additive rule: place this below all rules (see above), that can be changed by this rule (specificity)
+  .intermediate-title {
+    font-weight: bold;
+    margin-bottom: 0;
+
+    // set margin of immediately following element
+    &+h1, &+.pxl-title,
+    &+h2, &+.pxl-subtitle,
+    &+p, &+.pxl-text, &+.pxl-normal {
+      margin-top: 0;
+    }
+  }
+
+  //
+  // buttons
+  // standard button
+  button, .button {
+    @include pxl-button($teaser);
+  }
+
+  // more button
+  .button-more {
+    @include pxl-button-more($teaser);
+  }
+
+
+  //
+  // links
+  a, .link {
+    @include pxl-link;
+  }
+  .link-underline-off {
+    @include pxl-link-underline-off;
+  }
+  .link-underline-on {
+    @include pxl-link-underline-on;
+  }
+
+  // links in titles and paragraphs
+  h1, h2, .pxl-title, .pxl-subtitle {
+    a, .link {
+      @include pxl-link-underline-on($line-height: 2px, $line-dist: -4px);
+    }
+  }
+  p, .pxl-text, .pxl-normal {
+    a, .link {
+      @include pxl-link-underline-on;
+    }
+  }
+
+
+  //
+  // Unordered lists
+  p+ul, p+.unordered-list {
+    list-style-type: none;
+
+    li {
+      position: relative;
+      margin-left: 1.25em;
+
+      &::before {
+        content: "\FE63"; /*em-dash*/
+        position: absolute;
+        left: -1.25em;
+      }
+    }
+  }
+
+  //
+  // ordered lists
+  p+ol, p+.ordered-list {
+    list-style-type: decimal;
+    padding-left: 25px;
+
+    li {
+      padding-left: 10px;
+    }
+  }
+
+  //
+  // tables
+  table {
+    p {
+      @include pxl-font-plain-style(legend, $teaser);
+    }
+    tr {
+      th {
+        font-weight: bold;
+      }
+      td {
+        font-weight: normal;
+      }
+    }
+  }
+
+
+  //
+  // text formatting
+  //
+  .numbers {
+    font-family: $pxl-font;
+    font-weight: normal;
+    font-style: normal;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: 0.04em;
+  }
+
+  i, em, .italic {
+    font-family: $pxl-font;
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 0;
+  }
+
+  strong, b, .bold {
+    font-family: $pxl-font;
+    font-weight: bold;
+    font-style: normal;
+  }
+  .bold-gold {
+    font-family: $pxl-font;
+    font-weight: bold;
+    font-style: normal;
+    color: $pxl-gold;
+  }
+
+  u {
+    font-family: $pxl-font;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+
+  mark {
+    font-family: $pxl-font;
+    font-weight: normal;
+    font-style: normal;
+    background-color: #ff0;
+  }
+
+  pre, code, kbd, samp {
+    font-family: $font-family-monospace;
+    font-weight: normal;
+    font-style: normal;
+    color: $text-color-code;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 2px solid $pxl-color-border-active;
+    background: none;
+  }
+
+}
+
+@mixin pxl-wysiwyg-body($teaser: false) {
+  @include pxl-html-element-typo($teaser);
+}
+
+
+//
+// Maximum width of HTML elements
+//
+@mixin pxl-html-element-maxwidth($teaser: false) {
+  //
+  // set all text elements full width per default
+  [class*="col-"] {
+    //
+    // set global max-width for all styled elements
+    h1, .pxl-title,
+    h2, .pxl-subtitle,
+    p, .pxl-text, .pxl-normal, p.pxl-leadtext,
+    p.headline, .pxl-text.headline, .pxl-normal.headline,
+    small, .marginal, .pxl-subtext, .legend,
+    blockquote, .pxl-quote,
+    .form-item {
+      max-width: 100%;
+    }
+  }
+
+  @if ($teaser) {
+    //
+    // set all text elements full width in teaser mode
+    body & [class*="col-"] {
+      //
+      // set global max-width for all styled elements
+      h1, .pxl-title,
+      h2, .pxl-subtitle,
+      p, .pxl-text, .pxl-normal, p.pxl-leadtext,
+      p.headline, .pxl-text.headline, .pxl-normal.headline,
+      small, .marginal, .pxl-subtext, .legend,
+      blockquote, .pxl-quote,
+      .form-item {
+        max-width: 100%;
+      }
+    }
+  }
+  @else {
+    //
+    // full view mode
+    //
+    // set text element max-width for large column widths (11, 12)
+    .col-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xl-11,
+    .col-12, .col-sm-12, .col-md-12, .col-lg-12, .col-xl-12
+    {
+      h1, .pxl-title,
+      h2, .pxl-subtitle,
+      p, .pxl-text, .pxl-normal, p.pxl-leadtext,
+      blockquote, .pxl-quote {
+        @include media-breakpoint-up(lg) {
+          max-width: 90%;
+        }
+        @include media-breakpoint-up(xl) {
+          max-width: 80%;
+        }
+      }
+      p.headline, .pxl-text.headline, .pxl-normal.headline {
+        @include media-breakpoint-up(xs) {
+          max-width: 80%;
+        }
+        @include media-breakpoint-up(xs-phone) {
+          max-width: 70%;
+        }
+        @include media-breakpoint-up(sm) {
+          max-width: 60%;
+        }
+        @include media-breakpoint-up(md) {
+          max-width: 50%;
+        }
+      }
+      small, .marginal, .pxl-subtext, .legend {
+        @include media-breakpoint-up(xs-phone) {
+          max-width: 90%;
+        }
+        @include media-breakpoint-up(md) {
+          max-width: 80%;
+        }
+        @include media-breakpoint-up(lg) {
+          max-width: 70%;
+        }
+      }
+      .form-item {
+        @include media-breakpoint-up(md) {
+          max-width: 80%;
+        }
+        @include media-breakpoint-up(lg) {
+          max-width: 70%;
+        }
+        @include media-breakpoint-up(xl) {
+          max-width: 60%;
+        }
+      }
+    }
+
+    //
+    // Override max-width, when column is not full-width (11,12).
+    // Assumes, that column-width on larger screen-size is reduced and not enlarged
+    // e.g. col-12 -> col-md-6 -> col-lg-4
+    .col-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xl-1,
+    .col-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xl-2,
+    .col-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xl-3,
+    .col-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xl-4,
+    .col-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xl-5,
+    .col-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xl-6,
+    .col-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xl-7,
+    .col-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xl-8,
+    .col-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xl-9,
+    .col-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xl-10
+    {
+      h1, .pxl-title,
+      h2, .pxl-subtitle,
+      p, .pxl-text, .pxl-normal, p.pxl-leadtext,
+      p.headline, .pxl-text.headline, .pxl-normal.headline,
+      small, .marginal, .pxl-subtext, .legend,
+      blockquote, .pxl-quote,
+      .form-item {
+        max-width: 100%;
+      }
+    }
+
+  }
+
+}

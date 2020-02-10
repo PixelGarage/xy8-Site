@@ -1,0 +1,4 @@
+services:
+  onboarding.manager:
+    class: Drupal\onboarding\OnboardingManager
+    arguments: []

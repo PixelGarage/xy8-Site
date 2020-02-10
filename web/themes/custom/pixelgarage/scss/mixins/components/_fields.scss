@@ -1,0 +1,310 @@
+/*
+ *  Drupal field components
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+// Mixins
+// -------------------------
+//
+// Inner title
+@mixin field-title($hide: false) {
+  .field--name-field-title {
+    @if ($hide) {
+      display: none;
+    }
+    .field__item {
+      @include pxl-subtitle();
+      font-weight: bold;
+    }
+  }
+}
+
+@mixin block-title() {
+  .field--name-field-block {
+    .block-title {
+      @include pxl-subtitle();
+      font-weight: bold;
+    }
+  }
+}
+
+//
+// image fields
+@mixin field-image(){
+  .field--name-field-image {
+    .field__item {
+      display: inline-block;
+      @include pxl-spacey(mb, s1);
+
+      img {
+        @include img-fluid;
+      }
+    }
+  }
+}
+
+
+@mixin field-images($hide: false) {
+  .field--name-field-images {
+    @if ($hide) {
+      display: none;
+    }
+    .field__item {
+      @include pxl-spacey(mb, s1);
+      @include bs-carousel(true, true);
+    }
+  }
+}
+
+//
+// links field
+@mixin field-links() {
+  .field--name-field-links {
+    .field__items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+    }
+    .field__item {
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-right: 0;
+        margin-bottom: 0;
+      }
+
+      a {
+        @include pxl-button;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+@mixin field-links-theme($color, $background-color, $hover-color, $border-color) {
+  // field links buttons
+  .field--name-field-links .field__item a {
+    @include pxl-button-theme($color: $color, $background-color: $background-color, $hover-color: $hover-color, $border-color: $border-color);
+  }
+}
+
+//
+// video field
+@mixin field-video() {
+  .field--name-field-video {
+    @include pxl-spacey(mb, s1);
+
+    text-align: center;
+
+    .field__items {
+      width: 100%;
+      max-width: 720px;
+
+      .field__item {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
+
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+        }
+      }
+    }
+  }
+}
+
+//
+// file field
+@mixin field-file() {
+  .field--name-field-file {
+    .field__item {
+      @include pxl-spacey(mb, s1);
+
+      .file {
+        img {}
+
+        a {
+          @include pxl-hyphenate;
+        }
+      }
+    }
+  }
+}
+
+@mixin field-email() {
+  .field--name-field-email {
+    .field__item {
+      a {
+        @include pxl-link-underline-on();
+      }
+    }
+  }
+}
+
+
+//
+// SPECIAL Fields:
+// donation buttons
+@mixin field-donation-button-fixed() {
+  .field--name-field-spenden-predefined,
+  .field--name-field-recurr-spenden-predefined {
+    // stripe buttons
+    position: relative;
+    width: 100%;
+    z-index: 10;
+
+    .field__items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .field__item {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 0;
+
+      @include media-breakpoint-up(md) {
+        width: 50%;
+        padding: 0 10px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        width: 33.333333%;
+      }
+
+      @include stripe-button();
+    }
+  }
+}
+
+@mixin field-donation-button-custom() {
+  .field--name-field-spenden,
+  .field--name-field-recurr-spenden {
+    // stripe buttons
+    position: relative;
+    width: 100%;
+    z-index: 10;
+
+    .field__items {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .field__item {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 0;
+
+      @include media-breakpoint-up(md) {
+        width: auto;
+        padding: 0 10px;
+      }
+
+      @include stripe-button();
+    }
+  }
+}
+
+@mixin field-donation-button-fee() {
+  .field--name-field-spenden-fee-percentage,
+  .field--name-field-recurr-spenden-fee-percent {
+    .field__item {
+      @include stripe-button-fee-percentages;
+    }
+  }
+}
+
+//
+// footer fields
+@mixin field-footer-contact() {
+  .footer-header {
+    @include pxl-font-plain-style(subtext);
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    color: $pxl-color-main;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  .field--name-field-medienkontakt {
+    display: block;
+    margin: 0;
+
+    p {
+      @include pxl-font-plain-style(subtext);
+
+      &.pxl-legend {
+        @include pxl-font-plain-style(legend);
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-top: 2em;
+      margin-left: 110px;
+    }
+  }
+}
+
+@mixin field-follow-buttons() {
+  .field--name-follow-site {
+    @include pxl-spacey(mt, s2, default);
+    @include pxl-spacey(mb, s5, default);
+
+    @include media-breakpoint-up(lg) {
+      @include pxl-space0(my);
+    }
+
+    .field__item {
+      @include block-follow-links;
+    }
+  }
+}
+
+@mixin field-footer-menu() {
+  .field--name-body {
+    .field__item {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      p {
+        display: inline-block;
+        margin: 0 !important;
+        flex-basis: 100%;
+
+        @include media-breakpoint-up(sm) {
+          flex-basis: 50%;
+        }
+        @include media-breakpoint-up(lg) {
+          flex-basis: 100%;
+        }
+
+        a {
+          @include pxl-font-plain-style(subtext);
+          @include pxl-link-underline-off();
+        }
+      }
+    }
+  }
+}
+
+@mixin field-footer-menu-theme($color, $color-hover, $line-color) {
+  .field--name-body p a {
+    @include pxl-link-underline-off-theme($color, $color-hover, $line-color);
+  }
+}

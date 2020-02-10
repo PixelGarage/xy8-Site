@@ -1,0 +1,24 @@
+/*
+ *  Paragraph switch mixin
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$switch-breakpoint: lg;
+
+
+// Mixins
+// -------------------------
+@mixin paragraph-switch() {
+  @include media-breakpoint-up($switch-breakpoint) {
+    &.switch {
+      > .bs-region--left {
+        left: 50%;
+      }
+
+      > .bs-region--right {
+        right: 50%;
+      }
+    }
+  }
+}

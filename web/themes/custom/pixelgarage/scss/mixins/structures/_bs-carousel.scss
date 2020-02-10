@@ -1,0 +1,127 @@
+/*
+ *  bs-carousel component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$carousel-control-top: 160px;
+$carousel-control-shift: -30px;
+$carousel-control-top-small: 110px;
+$carousel-control-shift-small: -10px;
+
+$carousel-control-shadow-left: 2px 0 2px rgba(100,100,100, 0.4);
+$carousel-control-shadow-right: -2px 0 2px rgba(100,100,100, 0.4);
+
+// Mixins
+// -------------------------
+@mixin bs-carousel($hide-indicators: false, $hide-controls: false) {
+  .carousel {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: auto;
+
+    > .carousel-inner {
+      margin-top: 0;
+
+      .item {
+
+        &.active {
+
+        }
+      }
+    }
+
+    > .carousel-indicators {
+      @if ($hide-indicators) {
+        display: none;
+      }
+      position: fixed;
+      top: 20px;
+      bottom: auto;
+      margin-left: -40%;
+      width: 80%;
+      overflow-x: auto;
+      white-space: nowrap;
+
+      li {
+        margin: 0 5px;
+        width: 14px;
+        height: 14px;
+
+        &.active {
+          width: 17px;
+          height: 17px;
+        }
+      }
+    }
+
+    > a.carousel-control {
+      @if ($hide-controls) {
+        display: none;
+      }
+      @else {
+        display: block;
+      }
+      position: absolute;
+      top: $carousel-control-top-small;
+      bottom: auto;
+      padding: 0;
+      width: $carousel-control-width;
+      font-size: 50px;
+      text-shadow: none;
+      @include border-radius(20px);
+
+      @include media-breakpoint-up(sm){
+        top: $carousel-control-top;
+      }
+
+      &.left {
+        left: $carousel-control-shift-small;
+        @include border-left-radius(0);
+        border-left-width: 0;
+        @include box-shadow($carousel-control-shadow-left);
+
+        @include media-breakpoint-up(sm) {
+        left: $carousel-control-shift;
+      }
+
+        .fa {
+          margin-left: -10px;
+        }
+      }
+
+      &.right {
+        right: $carousel-control-shift-small;
+        @include border-right-radius(0);
+        border-right-width: 0;
+        @include box-shadow($carousel-control-shadow-right);
+
+        @include media-breakpoint-up(sm) {
+        right: $carousel-control-shift;
+      }
+
+        .fa {
+          margin-right: -10px;
+        }
+      }
+    }
+  }
+
+}
+
+@mixin bs-carousel-theme($color, $background-color, $border-color) {
+  .carousel {
+    > .carousel-indicators {
+      li {
+        border-color: $border-color;
+      }
+    }
+
+    > a.carousel-control {
+      color: $color;
+      border: 2px solid $color;
+      background-color: $background-color;
+    }
+  }
+}

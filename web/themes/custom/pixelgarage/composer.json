@@ -1,0 +1,16 @@
+{
+    "name": "pixelgarage/pixelgarage",
+    "description": "Bootstrap 4 pixelgarage theme.",
+    "type": "drupal-custom-theme",
+    "license": "GPL-2.0",
+    "homepage": "https://pixelgarage.ch",
+    "authors": [{
+        "name": "Ralph Moser",
+        "email": "ralph@ramosoft.ch"
+    }],
+    "minimum-stability": "dev",
+    "require": {
+      "drupal/bootstrap_barrio": "^4.22",
+      "npm-asset/bootstrap": "^4.4"
+    }
+}

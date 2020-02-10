@@ -1,0 +1,113 @@
+/*
+ * Special typography: Text headline
+ */
+
+// Variables for headlines
+// -----------------------------
+//
+// maps
+$headline-elements: (h1, h2, p);
+
+$headline-styles: (
+  h1: (
+    xs: (
+      wdist: 12px,  // word distance
+      lh: 1.05em,   // line height
+    ),
+    sm: (
+      wdist: 14px,
+      lh: 1.05em,
+    ),
+    md: (
+      wdist: 16px,
+      lh: 1em,
+    ),
+    lg: (
+      wdist: 18px,
+      lh: 1em,
+    ),
+    xl: (
+      wdist: 20px,
+      lh: 1em,
+    ),
+  ),
+  h2: (
+    xs: (
+      wdist: 10px,
+      lh: 1.15em,
+    ),
+    sm: (
+      wdist: 12px,
+      lh: 1.15em,
+    ),
+    md: (
+      wdist: 13px,
+      lh: 1.15em,
+    ),
+    lg: (
+      wdist: 14px,
+      lh: 1.15em,
+    ),
+    xl: (
+      wdist: 16px,
+      lh: 1.15em,
+    ),
+  ),
+  p: (
+    xs: (
+      wdist: 7px,
+      lh: 1.25em,
+    ),
+    sm: (
+      wdist: 8px,
+      lh: 1.25em,
+    ),
+    md: (
+      wdist: 9px,
+      lh: 1.15em,
+    ),
+    lg: (
+      wdist: 10px,
+      lh: 1.15em,
+    ),
+    xl: (
+      wdist: 11px,
+      lh: 1.15em,
+    ),
+  ),
+
+);
+
+// Mixins
+// -------------------------
+//
+// Headline theme
+@mixin pxl-headline-theme( $background: $pxl-black, $typo: $pxl-white) {
+  span.headline-inner {
+    background-color: $background;
+    color: $typo;
+  }
+}
+
+//
+// headline style
+@mixin pxl-headline-style($element: p, $teaser: false) {
+  $element-style: map-get($headline-styles, $element);
+  $factor: if($teaser, $teaser-factor, 1);
+
+  @each $breakpoint, $typo in $element-style {
+    $word-dist: map-get($typo, wdist) * $factor;
+    $lh: map-get($typo, lh) * $factor;
+
+    @include media-breakpoint-up($breakpoint) {
+      margin-top: $lh * 1.5;
+      margin-left: $word-dist;
+
+      span.headline-inner {
+        padding: $word-dist/2 $word-dist;
+        margin-top: - $word-dist/2;
+        margin-left: - $word-dist;
+      }
+    }
+  }
+}

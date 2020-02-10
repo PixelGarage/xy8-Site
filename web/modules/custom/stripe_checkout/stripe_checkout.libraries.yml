@@ -1,0 +1,20 @@
+stripe-button:
+  version: 1.x
+  js:
+    js/stripe_checkout.js: {preprocess: false}
+    https://js.stripe.com/v3/: {type:external}
+
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupalSettings
+
+stripe-fee:
+  version: 1.x
+  js:
+    js/stripe_button_fee.js: {preprocess: false}
+
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+

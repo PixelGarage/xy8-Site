@@ -1,0 +1,113 @@
+/*
+ *  Exposed search block: date component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+@mixin pxl-datepicker-theme($color, $background-color, $border-color) {
+  #ui-datepicker-div {
+    border: 1px solid $border-color;
+
+    .ui-state-default,
+    .ui-widget-header .ui-state-default,
+    .ui-widget-content .ui-state-default {
+      border: 1px solid $border-color;
+    }
+
+    .ui-state-active,
+    .ui-widget-header .ui-state-active,
+    .ui-widget-content .ui-state-active {
+      border: 1px solid $border-color;
+    }
+
+    table.ui-datepicker-calendar {
+      thead {
+        tr {
+          th {
+            color: $color;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            background: none;
+
+            a {
+              color: $background-color;
+              background-color: $color;
+
+              &:hover, &:focus, &.ui-state-active {
+                color: $color;
+                background-color: $background-color;
+              }
+            }
+
+            &.ui-datepicker-unselectable {
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin pxl-datepicker {
+  #ui-datepicker-div {
+    position: relative;
+    margin: 0;
+    @include pxl-legend();
+    @include border-radius(0);
+    z-index: $zindex-popover !important;
+
+    .admin-menu & {
+      margin: -29px 0 0;
+    }
+
+    .ui-state-default,
+    .ui-widget-header .ui-state-default,
+    .ui-widget-content .ui-state-default {
+      background: none;
+    }
+
+    .ui-state-active,
+    .ui-widget-header .ui-state-active,
+    .ui-widget-content .ui-state-active {
+      background: none;
+    }
+
+    .ui-datepicker-header {
+      border: none;
+      @include border-radius(0);
+      background: none;
+
+      .ui-datepicker-prev {
+        .ui-icon {
+
+        }
+      }
+
+      .ui-datepicker-next {
+        .ui-icon {
+
+        }
+      }
+
+      .ui-datepicker-title {
+        select.ui-datepicker-month,
+        select.ui-datepicker-year {
+          padding: 0 0 2px;
+
+          option {
+          }
+        }
+      }
+    }
+  }
+}

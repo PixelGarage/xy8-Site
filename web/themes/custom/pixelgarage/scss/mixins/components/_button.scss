@@ -1,0 +1,132 @@
+/*
+ * Button element mixins
+ */
+
+// Variables for mixin
+// -------------------------
+// Button border thickness
+$button-line:		3px;
+
+// URL-Content
+$svg-url-start:			"url('data:image/svg+xml;charset=UTF-8,";
+$svg-url-end:				"')";
+
+// SVG button more arrow
+$svg-more-arrow-1:		'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.74369 25.00218"><polyline points="36.775 0.355 49.033 12.501 36.775 24.647" style="fill:none;stroke:';
+$svg-more-arrow-2:		';stroke-miterlimit:10;stroke-width:1px"/><line y1="12.50109" x2="49.03331" y2="12.50109" style="fill:none;stroke:';
+$svg-more-arrow-3:		';stroke-miterlimit:10;stroke-width:1px"/></svg>';
+$svg-more-arrow-2-hover:	';stroke-miterlimit:10;stroke-width:2px"/><line y1="12.50109" x2="49.03331" y2="12.50109" style="fill:none;stroke:';
+$svg-more-arrow-3-hover:	';stroke-miterlimit:10;stroke-width:2px"/></svg>';
+
+
+
+// Mixins
+// -------------------------
+//
+// Button
+@mixin pxl-button($teaser: false) {
+  // teaser shrink factor
+  $factor: if($teaser, $teaser-factor, 1);
+  $py: $factor * 5px;
+  $px: $factor * 15px;
+  $mr: $factor * 10px;
+
+  -webkit-appearance: none;
+  display: inline-block;
+  @include pxl-formtext($teaser);
+  margin-right: $mr !important;
+  padding: $py $px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  //border: $button-line solid;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:focus, &:hover {
+    outline: none;
+  }
+  &:last-child {
+    margin-right: 0 !important;
+  }
+}
+
+@mixin pxl-button-theme($color, $background-color, $hover-color, $border-color) {
+  border: $button-line solid $border-color;
+  color: $color;
+  background-color: transparent;
+
+  &:focus, &:hover {
+    color: $background-color;
+    background-color: $hover-color;
+  }
+}
+
+
+//
+// more button
+@mixin pxl-button-more($teaser: false) {
+  // teaser shrink factor
+  $factor: if($teaser, $teaser-factor, 1);
+
+  -webkit-appearance: none;
+  display: inline-block;
+  @include pxl-formtext($teaser);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:after {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin-left: 15px;
+    width: 30px * $factor;
+    height: 15px * $factor;
+
+    @include media-breakpoint-up(sm) {
+      width: 34px * $factor;
+      height: 17px * $factor;
+    }
+    @include media-breakpoint-up(md) {
+      width: 40px * $factor;
+      height: 20px * $factor;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 44px * $factor;
+      height: 22px * $factor;
+    }
+    @include media-breakpoint-up(xl) {
+      width: 50px * $factor;
+      height: 25px * $factor;
+    }
+  }
+}
+
+@mixin pxl-button-more-theme ($theme-color, $color, $nearcolor, $middlecolor, $palecolor, $svgcolor) {
+  color: $nearcolor;
+
+  &:after {
+    content: unquote($svg-url-start) + unquote($svg-more-arrow-1) + $svgcolor + unquote($svg-more-arrow-2) + $svgcolor + unquote($svg-more-arrow-3) + unquote($svg-url-end);
+  }
+  &:hover:after {
+    content: unquote($svg-url-start) + unquote($svg-more-arrow-1) + $svgcolor + unquote($svg-more-arrow-2-hover) + $svgcolor + unquote($svg-more-arrow-3-hover) + unquote($svg-url-end);
+  }
+}
+
+//
+// buttons theming
+//
+@mixin pxl-all-buttons-theme ($theme-color, $color, $nearcolor, $middlecolor, $palecolor, $svgcolor) {
+  // standard button
+  button, .button {
+    @include pxl-button-theme($color: $nearcolor, $background-color: $theme-color, $border-color: $color, $hover-color: $color);
+  }
+
+  // more button
+  .button-more {
+    @include pxl-button-more-theme($theme-color, $color, $nearcolor, $middlecolor, $palecolor, $svgcolor);
+  }
+
+}

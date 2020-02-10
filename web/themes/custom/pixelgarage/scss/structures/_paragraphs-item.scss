@@ -1,0 +1,54 @@
+/*
+ *  Paragraphs item component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+// Mixins
+// -------------------------
+
+
+
+// General settings
+// -------------------------
+.paragraph {
+  @include pxl-spacey(py, s1, section);
+
+  // full width mode
+  &.full-width {
+    @include theme-lightgray-black;
+  }
+
+  // paragraph switch columns
+  @include paragraph-switch;
+
+  // paragraph columns
+  &.row {
+    > [class*="col-"]  {
+      @include pxl-spacey(py, s1, column);
+
+
+      // reset top margin of first field item content
+      .field:first-child .field__item:first-child,
+      .field:first-child .field__item:first-child > *:first-child {
+        margin-top: 0;
+      }
+      // reset bottom margin of last field item content
+      .field:last-child .field__item:last-child,
+      .field:last-child .field__item:last-child > *:last-child {
+        margin-bottom: 0;
+      }
+
+      //
+      // fields
+      @include field-title;
+      @include block-title;
+      @include field-video;
+      @include field-file;
+      @include field-image;
+      @include field-links;
+
+    }
+  }
+}

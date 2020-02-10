@@ -1,0 +1,78 @@
+/*
+ *  Follow site links component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$pxl-follow-icon-size: 35px;
+
+
+// Mixins
+// -------------------------
+@mixin block-follow-links() {
+  .follow-links {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .follow-link-wrapper {
+      margin-right: $pxl-follow-icon-size;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      a.follow-link {
+        @extend .fab;
+        display: inline-block;
+        padding: 0;
+        height: $pxl-follow-icon-size;
+        width: $pxl-follow-icon-size;
+        line-height: $pxl-follow-icon-size;
+        font-size: 3rem;
+        text-decoration: none;
+        text-align: center;
+        opacity: 1.0;
+        background-image: none !important;
+
+        &.follow-link-facebook:before {
+          content: fa-content($fa-var-facebook);
+        }
+        &.follow-link-twitter:before {
+          content: fa-content($fa-var-twitter);
+        }
+        &.follow-link-googleplus:before {
+          // instagram icon
+          content: fa-content($fa-var-instagram);
+        }
+        &.follow-link-youtube:before {
+          content: fa-content($fa-var-youtube);
+        }
+        &.follow-link-xing:before {
+          content: fa-content($fa-var-xing);
+        }
+        &.follow-link-linkedin:before {
+          content: fa-content($fa-var-linkedin-in);
+        }
+        &.follow-link-this-site:before {
+          content: fa-content($fa-var-rss);
+        }
+
+      }
+    }
+  }
+}
+
+@mixin block-follow-links-theme($color, $hover-color) {
+  .follow-links .follow-link-wrapper a.follow-link {
+    color: $color;
+
+    &:hover {
+      //#pxl-mixins.border-radius(50%);
+      //border: 2px solid @pxl-color-gray-text;
+      color: $hover-color;
+    }
+  }
+}

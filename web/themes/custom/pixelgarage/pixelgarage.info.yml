@@ -1,0 +1,35 @@
+name: Pixelgarage
+desciption: 'The standard theme of Pixelgarage'
+type: theme
+core: 8.x
+version: VERSION
+screenshot: Pixelgarage.png
+
+base theme: bootstrap_barrio
+
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  featured_top: 'Featured top'
+  message: 'Messages'
+  admin:  'Admin section'
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  featured_bottom: 'Featured bottom'
+  footer: 'Footer'
+regions_hidden:
+  - featured_bottom
+
+libraries:
+  - pixelgarage/global-styling
+
+libraries-override:
+  bootstrap_barrio/global-styling: false
+
+ckeditor_stylesheets:
+  - css/ckeditor.css

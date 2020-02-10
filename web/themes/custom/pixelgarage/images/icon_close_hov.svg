@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" xml:space="preserve">
+    <g id="close">
+        <line x1="1" y1="29" x2="29" y2="1" stroke="#888888" stroke-width="3"/>
+        <line x1="1" y1="1" x2="29" y2="29" stroke="#888888" stroke-width="3"/>
+    </g>
+</svg>

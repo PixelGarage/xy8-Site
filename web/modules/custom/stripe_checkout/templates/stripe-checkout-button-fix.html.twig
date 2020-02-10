@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a Stripe checkout button field with a fixed value.
+ *
+ * Available variables are:
+ * - button_id:             button id
+ * - amount:                the amount to be paid
+ * - button_label           the label of the button
+ * - stripe_Settings        an array of stripe checkout settings
+ *
+ * @see template_preprocess_stripe_checkout_button_fix()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if amount > 0 %}
+  {# create a stripe checkout button #}
+  {% if not hide_container %}
+    <div class="stripe-button-container pay">
+  {% endif %}
+    <div class="stripe-button-title">{{ box_title }}</div>
+    <div class="stripe-button-text">{{ box_text }}</div>
+    <button id="{{ button_id }}" type="button" class="btn btn-normal stripe-button">{{ button_label }}</button>
+  {% if not hide_container %}
+    </div>
+  {% endif %}
+
+{% elseif amount == 0 %}
+  {# successful payment, create success button (disabled) without container (called in ajax callback) #}
+  <div class="stripe-button-title">{{ box_title }}</div>
+  <div class="stripe-button-text">{{ box_text }}</div>
+  <button id="{{ button_id }}" type="button" class="btn btn-success stripe-button" disabled>
+    <span class="fa fa-check"></span>{{ button_label }}
+  </button>
+{% else %}
+  {# failed payment, create fail button (disabled) without container (called in ajax callback) #}
+  <div class="stripe-button-title">{{ box_title }}</div>
+  <div class="stripe-button-text">{{ box_text }}</div>
+  <button id="{{ button_id }}" type="button" class="btn btn-error stripe-button" disabled>
+    <span class="fa fa-times"></span>{{ button_label }}
+  </button>
+  <div class="stripe-button-error">{{ message|t }}</div>
+{% endif %}
+

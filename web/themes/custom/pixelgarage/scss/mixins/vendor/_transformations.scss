@@ -1,0 +1,49 @@
+/*
+ * Transformation mixins 2D | 3D
+ */
+//
+// Scene functions
+@mixin pxl-perspective($z: 500px) {
+  // viewer distance from origin
+  -webkit-perspective: $z;
+  -moz-perspective: $z;
+  perspective: $z;
+}
+
+@mixin pxl-perspective-origin($args...) {
+  // viewer distance from origin
+  -webkit-perspective-origin: $args;
+  -moz-perspective-origin: $args;
+  perspective-origin: $args;
+}
+
+//
+//  3D element functions
+@mixin pxl-transform($transf...) {
+  // multiple transformations are performed from right to left (matrix multiplication)
+  -webkit-transform: $transf;
+  -moz-transform: $transf;
+  transform: $transf;
+}
+
+@mixin pxl-transform-style($style: flat) {
+  // flat | preserve-3d
+  -webkit-transform-style: $style;
+  -moz-transform-style: $style; // fixes non transitive 3d from parent and child
+  transform-style: $style;
+}
+
+@mixin pxl-transform-origin($args...) {
+  // sets origin of element transformation
+  -webkit-transform-origin: $args;
+  -moz-transform-origin: $args;
+  transform-origin: $args;
+}
+
+@mixin pxl-backface-visibility($arg: hidden) {
+  // visible | hidden
+  -webkit-backface-visibility: $arg;
+  -moz-backface-visibility: $arg; // fixes non transitive 3d from parent and child
+  backface-visibility: $arg;
+}
+

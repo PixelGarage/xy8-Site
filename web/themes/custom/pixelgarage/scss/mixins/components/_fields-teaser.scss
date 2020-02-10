@@ -1,0 +1,101 @@
+/*
+ *  Drupal teaser field components
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+// Mixins
+// -------------------------
+//
+// image teaser field
+@mixin teaser-field-picture (){
+  .field--name-field-picture, .field--name-field-image {
+    margin-top: -($grid-gutter-width/2);
+    margin-left: -($grid-gutter-width/2);
+    margin-right: -($grid-gutter-width/2);
+    margin-bottom: ($grid-gutter-width/2);
+
+    .field__item {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@mixin teaser-field-portrait() {
+  .field--name-field-image {
+    margin: 0 0 ($grid-gutter-width/2);
+
+    .field__item {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+//
+// decoration teaser field
+@mixin teaser-field-decoration() {
+  .field--name-field-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 10px;
+    width: 56.5685%;
+    background-color: black;
+    transform-origin: 70.7% top;
+    @include pxl-transform(rotate(-45deg) translate(-29.29%, -100%));
+    z-index: 100;
+
+    .field__item {
+      @include pxl-font-plain-style(text, true);
+      font-weight: 500;
+      text-transform: uppercase;
+      text-align: center !important;
+    }
+
+    .decoration-black & {
+      color: white;
+      background-color: $pxl-black;
+    }
+    .decoration-gold & {
+      background-color: $pxl-gold;
+    }
+    .decoration-green & {
+      background-color: $pxl-white;
+    }
+    .decoration-red & {
+      background-color: $pxl-lightgray;
+    }
+    .decoration-blue & {
+      background-color: $pxl-darkgray;
+    }
+  }
+}
+
+
+//
+// email teaser field
+@mixin teaser-field-email() {
+  .field--name-field-email {
+    .field__item {
+      a {
+        @include pxl-font-plain-style(text, true);
+        @include pxl-link-underline-on;
+      }
+    }
+  }
+}
+
+@mixin teaser-field-email-theme($color, $color-hover, $line-color) {
+  .field--name-field-email .field-item > a {
+    @include pxl-link-underline-on-theme($color, $color-hover, $line-color);
+  }
+}
+

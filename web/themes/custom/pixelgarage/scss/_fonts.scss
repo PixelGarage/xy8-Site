@@ -1,0 +1,103 @@
+/*
+ * Pixelgarage fonts
+ * --------------------------------------------------*/
+//
+// Font face tips
+// https://www.456bereastreet.com/archive/201012/font-face_tip_define_font-weight_and_font-style_to_keep_your_css_simple/
+
+//
+// webfont licences
+//@import '../fonts/BrandonGrotesque/BrandonGrotesque-Licence.css';
+
+//
+// Google fonts
+//@import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+
+//
+//  font awesome icon font
+$fa-font-path: '../fonts/fontawesome/webfonts'; // override fa font path (lazy loading)
+@import '../fonts/fontawesome/scss/fontawesome.scss';
+@import '../fonts/fontawesome/scss/solid.scss';
+@import '../fonts/fontawesome/scss/regular.scss';
+@import '../fonts/fontawesome/scss/brands.scss';
+
+// icon font
+$pxl-icon-font: 'Font Awesome 5 Free';
+$pxl-brands-font: 'Font Awesome 5 Brands';
+
+//
+// Define customer specific fonts
+$pxl-font-path: '../fonts';
+
+//
+// Font faces
+//
+// text fonts
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.ttf') format('truetype');
+  //url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.svg#ProximaNovaBold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-BoldIt/ProximaNova-BoldIt.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-BoldIt/ProximaNova-BoldIt.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-BoldIt/ProximaNova-BoldIt.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-BoldIt/ProximaNova-BoldIt.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-BoldIt/ProximaNova-BoldIt.ttf') format('truetype');
+  //url('#{$pxl-font-path}/ProximaNova-Bold/ProximaNova-Bold.svg#ProximaNovaBold') format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-Regular/ProximaNova-Regular.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-Regular/ProximaNova-Regular.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-Regular/ProximaNova-Regular.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-Regular/ProximaNova-Regular.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-Regular/ProximaNova-Regular.ttf') format('truetype');
+  //url('#{$pxl-font-path}/ProximaNovaRegular/ProximaNovaRegular.svg#ProximaNovaRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-RegularIt/ProximaNova-RegularIt.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-RegularIt/ProximaNova-RegularIt.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-RegularIt/ProximaNova-RegularIt.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-RegularIt/ProximaNova-RegularIt.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-RegularIt/ProximaNova-RegularIt.ttf') format('truetype');
+  //url('#{$pxl-font-path}/ProximaNovaRegular/ProximaNovaRegular.svg#ProximaNovaRegular') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-Semibold/ProximaNova-Semibold.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-Semibold/ProximaNova-Semibold.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-Semibold/ProximaNova-Semibold.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-Semibold/ProximaNova-Semibold.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-Semibold/ProximaNova-Semibold.ttf') format('truetype');
+ //url('#{$pxl-font-path}/ProximaNovaLight/ProximaNovaLight.svg#ProximaNovaLight') format('svg');
+ font-weight: 500;
+ font-style: normal;
+}
+@font-face {
+  font-family: 'PxlFont';
+  src: url('#{$pxl-font-path}/ProximaNova-SemiboldIt/ProximaNova-SemiboldIt.eot');
+  src: url('#{$pxl-font-path}/ProximaNova-SemiboldIt/ProximaNova-SemiboldIt.eot') format('embedded-opentype'),
+  url('#{$pxl-font-path}/ProximaNova-SemiboldIt/ProximaNova-SemiboldIt.woff2') format('woff2'),
+  url('#{$pxl-font-path}/ProximaNova-SemiboldIt/ProximaNova-SemiboldIt.woff') format('woff'),
+  url('#{$pxl-font-path}/ProximaNova-SemiboldIt/ProximaNova-SemiboldIt.ttf') format('truetype');
+ //url('#{$pxl-font-path}/ProximaNovaLight/ProximaNovaLight.svg#ProximaNovaLight') format('svg');
+ font-weight: 500;
+ font-style: italic;
+}

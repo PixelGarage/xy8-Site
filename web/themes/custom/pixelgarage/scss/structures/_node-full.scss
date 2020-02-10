@@ -1,0 +1,65 @@
+/*
+ *  Node full component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+// Mixins
+// -------------------------
+
+
+
+// General settings
+// -------------------------
+//
+// Drupal specific markup
+// Columns in nodes (except page)
+.node.node--view-mode-full:not(.node--type-page),
+.node.node--view-mode-default:not(.node--type-page){
+  @include pxl-spacey(py, s1, section);
+
+  &.row {
+    > [class*="col-"] {
+      position: relative;
+      @include pxl-spacey(py, s1, column);
+
+      // reset top margin of first field item content
+      .field:first-child .field__item:first-child,
+      .field:first-child .field__item:first-child > *:first-child {
+        margin-top: 0;
+      }
+      // reset bottom margin of last field item content
+      .field:last-child .field__item:last-child,
+      .field:last-child .field__item:last-child > *:last-child {
+        margin-bottom: 0;
+      }
+
+      //
+      // fields
+      @include field-video;
+      @include field-file;
+      @include field-image;
+      @include field-images;
+      @include field-links;
+      @include field-email;
+
+    }
+  }
+}
+
+.node--type-page.node--view-mode-full,
+.node--type-page.node--view-mode-default {
+  &.row {
+    > [class*="col-"] {
+      position: relative;
+
+      //
+      // top body field, if any
+      > .field--name-body {
+        @include pxl-spacey(py, s1, section);
+      }
+    }
+  }
+}
+

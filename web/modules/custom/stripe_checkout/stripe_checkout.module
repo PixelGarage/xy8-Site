@@ -1,0 +1,316 @@
+<?php
+/**
+ * Module file to implement a stripe button.
+ * @file
+ */
+
+use Drupal\Core\Url;
+
+define('STRIPE_CHECKOUT_JAVASCRIPT_PATH', 'https://js.stripe.com/v3/');
+
+
+/* =============================================================================
+ *   Stripe checkout button themes
+ * ========================================================================== */
+/**
+ * Session wide data container.
+ *
+ * @return array Returns the session data array.
+ */
+function &stripe_checkout_session_data() {
+  if (!isset($_SESSION['stripe_checkout'])) {
+    $_SESSION['stripe_checkout'] = array();
+  }
+  return $_SESSION['stripe_checkout'];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function stripe_checkout_theme($existing, $type, $theme, $path) {
+  return array(
+    'stripe_checkout_button_fix' => array(
+      'variables' => array(
+        'button_id' => NULL,
+        'box_title' => NULL,
+        'box_text' => NULL,
+        'amount' => NULL,
+        'currency' => NULL,
+        'stripe_settings' => NULL,
+        'csp' => FALSE,
+        'message' => NULL,
+      ),
+      'file' => 'templates/stripe_checkout_button_fix.vars.php',
+    ),
+    'stripe_checkout_button_custom' => array(
+      'variables' => array(
+        'button_id' => NULL,
+        'box_title' => NULL,
+        'box_text' => NULL,
+        'amount' => NULL,
+        'currency' => NULL,
+        'stripe_settings' => NULL,
+        'csp' => FALSE,
+        'message' => NULL,
+      ),
+      'file' => 'templates/stripe_checkout_button_custom.vars.php',
+    ),
+    'stripe_checkout_fee_percentage' => array(
+      'variables' => array(
+        'field_id' => NULL,
+        'fee_items' => NULL,
+        'default_button_index' => '0',
+        'top_text' => '',
+        'bottom_text' => '',
+        'stripe_fee_text' => '',
+      ),
+      'file' => 'templates/stripe_checkout_fee_percentage.vars.php',
+    ),
+  );
+}
+
+
+/**
+ * Helper function: Prepares the stripe checkout session settings.
+ */
+function _prepare_stripe_checkout_settings($settings, $given_amount) {
+  // Stripe needs cents (Rappen) as value
+  $amount = (int)($given_amount*100);
+
+  // submit type
+  $submit_type = (isset($settings['submit_type']) && !empty($settings['submit_type'])) ? $settings['submit_type'] : 'auto';
+  switch ($submit_type) {
+    case 'book':
+      $submit_text = t('Booking');
+      $submit_action = t('Book');
+      break;
+    case 'donate':
+      $submit_text = t('Donation');
+      $submit_action = t('Donate');
+      break;
+    case 'auto':
+    case 'pay':
+    default:
+    $submit_text = t('Payment');
+    $submit_action = t('Pay');
+      break;
+  }
+
+  // define default description of payment
+  $recurring_billing = (isset($settings['recurring_billing']) && !empty($settings['recurring_billing'])) ? $settings['recurring_billing'] : 'one-time';
+  switch ($recurring_billing) {
+    case 'one-time':
+      $description = t('@type: Your card is charged once', ['@type' => $submit_text]);
+      break;
+    case 'daily':
+      $description = t('@type: Your card is charged daily', ['@type' => $submit_text]);
+      break;
+    case 'weekly':
+      $description = t('@type: Your card is charged weekly', ['@type' => $submit_text]);
+      break;
+    case 'monthly':
+      $description = t('@type: Your card is charged monthly', ['@type' => $submit_text]);
+      break;
+    case 'yearly':
+      $description = t('@type: Your card is charged once a year', ['@type' => $submit_text]);
+      break;
+    default:
+      // reset recurring billing
+      $recurring_billing = 'one-time';
+      $description = t('@type: Your card is charged once', ['@type' => $submit_text]);
+      break;
+  }
+
+  // define success url as main page
+  $redirect_url = Url::fromUri('internal:/')->setAbsolute()->toString();
+  $site_name = \Drupal::config('system.site')->get('name');
+
+  $stripe_settings = [
+    'recurring_billing' => $recurring_billing,
+    'name' => isset($settings['name']) && !empty($settings['name']) ? $settings['name'] : $site_name,
+    'description' => isset($settings['description']) && !empty($settings['description']) ? $settings['description'] : $description,
+    'currency' => isset($settings['currency']) && !empty($settings['currency']) ? strtoupper($settings['currency']) : 'CHF',
+    'amount' => $amount,
+    'submit_type' => $submit_type,
+    'billing_address' => $settings['billing_address'] ? 'required' : 'auto',
+    'payment_method_types' => ['card'],
+    'client_reference_id' => null,
+    'success_url' => $redirect_url,
+    'cancel_url' => $redirect_url,
+    'submit_text' => $submit_text,
+    'submit_action' => $submit_action,
+  ];
+
+  return $stripe_settings;
+}
+
+
+/**
+ * Helper function: Cleanup and harmonize button variables and settings.
+ */
+function _cleanup_button_variables(&$variables, &$stripe_settings) {
+  if (!isset($variables['currency'])) {
+    $variables['currency'] = $stripe_settings['currency'];
+  }
+  else {
+    $variables['currency'] = !empty($variables['currency']) ? strtoupper($variables['currency']) : 'CHF';
+    $stripe_settings['currency'] = $variables['currency'];
+  }
+  $variables['amount'] = $variables['amount'] * 100 / 100; // no decimal value if not needed
+  $variables['recurring_billing'] = $stripe_settings['recurring_billing'];
+
+  $variables['box_title'] = $variables['box_title'] ? $variables['box_title'] : $stripe_settings['submit_text'];
+  $box_text = $variables['box_text'] ? $variables['box_text'] : t('Pay the given amount');
+  if ($variables['amount'] > 0) {
+    switch ($stripe_settings['recurring_billing']) {
+      case 'one-time':
+      default:
+        $box_text = t('@text once', array('@text' => $box_text));
+        break;
+      case 'daily':
+        $box_text = t('@text per day', array('@text' => $box_text));
+        break;
+      case 'weekly':
+        $box_text = t('@text per week', array('@text' => $box_text));
+        break;
+      case 'monthly':
+        $box_text = t('@text per month', array('@text' => $box_text));
+        break;
+      case 'yearly':
+        $box_text = t('@text per year', array('@text' => $box_text));
+        break;
+    }
+  }
+  $variables['box_text'] = $box_text;
+}
+
+/**
+ * Helper function: Add the javascript files for the checkout process.
+ */
+function _add_stripe_checkout_js(&$variables, $checkout_buttons = [], $custom_buttons = []) {
+  $path = &drupal_static(__FUNCTION__);
+  if (!isset($path)) {
+    // add Drupal js settings (Drupal settings are merged for multiple buttons)
+    $path = drupal_get_path('module', 'stripe_checkout');
+    $stripe_api = \Drupal::service('stripe_api.stripe_api');
+    $logo = $path . '/images/stripe_logo.png';
+    $loader_img = $path . '/images/ajax_loader.svg';
+    $js_settings = [
+      'stripe_checkout' => [
+        'stripe_public_key' => $stripe_api->getPubKey(),
+        'icon' => $logo ? file_create_url($logo) : '',
+        'processing_img' => $loader_img ? file_create_url($loader_img) : '',
+      ],
+    ];
+  }
+
+  $js_settings['stripe_checkout']['checkout_buttons'] = $checkout_buttons;
+  $js_settings['stripe_checkout']['custom_buttons'] = $custom_buttons;
+
+  // attach the libraries
+  $variables['#attached']['library'][] = 'stripe_checkout/stripe-button';
+  $variables['#attached']['drupalSettings'] = $js_settings;
+}
+
+
+/* --------------------------------------------------
+ *  User management and profile form
+ * --------------------------------------------------*/
+/**
+ * User hook called before user is deleted.
+ * Guarantees, that the subscriptions on Stripe server are deleted when local user is deleted.
+ *
+ * @param $account
+ */
+function stripe_checkout_user_delete($account) {
+  // TODO: what if Stripe subscription could not be deleted
+  $stripeCheckout = \Drupal::service('stripe_checkout.stripe_checkout');
+  $stripeCheckout->deleteUserSubscriptions($account);
+}
+
+
+/**
+ * Alter the user profile form.
+ *
+ * Alter the user profile to make the subscription of a user manageable.
+ */
+function stripe_checkout_form_user_profile_form_alter (&$form, &$form_state, $form_id) {
+  //
+  // show subscription information in the user profile, if available
+  $user = $form['#user'];
+  $stripeCheckout = \Drupal::service('stripe_checkout.stripe_checkout');
+
+  $subscriptions = $stripeCheckout->dbGetUserSubscriptions($user->uid);
+  if (!empty($subscriptions)) {
+    //
+    // create table with subscription info of user
+    $header = array(
+      'subscription' => array('data' => t('Subscription')),
+      'created' => array('data' => t('Created')),
+      'ops' => array('data' => t('Operations')),
+    );
+    $rows = array();
+    $empty = t('No recurring payment subscription available.');
+    $has_valid_subscription = false;
+
+    try {
+      foreach ($subscriptions as $subscription) {
+        $stripe_cust_id = $subscription['stripe_cust_id'];
+        if (empty($stripe_cust_id)) continue;
+
+        $customer = \Stripe\Customer::retrieve(array(
+            "id" => $stripe_cust_id,
+            "expand" => array("subscriptions")
+          )
+        );
+        if ($customer->deleted) {
+          // cleanup db and continue
+          $stripeCheckout->dbDeleteSubscription($stripe_cust_id);
+          continue;
+        }
+
+        // create a row per subscription (should be only one)
+        foreach($customer->subscriptions->data as $index => $stripe_subscription) {
+          $has_valid_subscription = true;
+          $plan = $stripe_subscription->plan;
+          $subscription_text = t('@plan: @amount @curr per @interval', array(
+              '@plan' => $plan->name,
+              '@amount' => $plan->amount/100,
+              '@curr' => strtoupper($plan->currency),
+              '@interval' => $plan->interval,
+            )
+          );
+
+          // create delete link
+          $uid = $user->uid;
+          $del_subscription_url = 'stripe/checkout/user/' . $uid . '/delete_subscription';
+          $del_link = l(t('Delete'), $del_subscription_url, array(
+            'attributes' => array('class' => array('btn btn-default stripe-user-subscription-delete'), 'title' => t('Delete user subscription'))
+          ));
+
+          // create row
+          $rows[] = array(
+            'subscription' => $subscription_text,
+            'created' => \Drupal::service('date.formatter')->format($plan->created, 'short'),
+            'ops' => $del_link,
+          );
+        }
+      }
+
+      // no valid stripe subscription exists, don't show subscription table
+      if (!$has_valid_subscription) return;
+    }
+    catch (Exception $e) {
+      $empty = t('Stripe subscription could not be retrieved. Try later again.');
+    }
+
+    // add subscription table
+    $form['subscription'] = array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+      '#empty' => $empty,
+    );
+  }
+}
+

@@ -1,0 +1,5 @@
+onboarding.user.collection:
+  title: 'Onboarding leads'
+  route_name: onboarding.user.collection
+  base_route: entity.user.collection
+

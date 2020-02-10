@@ -1,0 +1,67 @@
+/*
+ *  Webform field wrappers component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+$form-element-mb:		map-get(map-get(map-get($typo-styles, form), md), lh);
+
+// Mixins
+// -------------------------
+@mixin webform-field-wrapper() {
+  fieldset.form-item {
+    padding: 0;
+    border: none;
+    max-width: 100%;
+
+    @include media-breakpoint-up(md) {
+      max-width: 80%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 70%;
+    }
+    @include media-breakpoint-up(xl) {
+      max-width: 60%;
+    }
+
+    label {
+      @include pxl-font-plain-style(legend);
+      font-size: $min-font-size !important;
+      span.form-required {}
+    }
+
+    .webform-element-help, .webform-element-description {
+      padding: 0;
+      @include pxl-font-style(legend);
+      font-size: $min-font-size !important;
+      margin-top: -$form-element-mb !important; // set help text closer to form element
+    }
+
+  }
+}
+
+@mixin webform-field-wrapper-theme($form-theme-color, $form-color, $form-nearcolor, $form-middlecolor, $form-palecolor, $form-svgcolor) {
+  fieldset.form-item .text-muted {
+    color: $form-palecolor !important;
+  }
+}
+
+@mixin webform-actions-wrapper() {
+  .webform-actions {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    border: none;
+    max-width: 100%;
+
+    @include media-breakpoint-up(md) {
+      max-width: 80%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 70%;
+    }
+    @include media-breakpoint-up(xl) {
+      max-width: 60%;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ralph
+ * Date: 05.01.17
+ * Time: 11:53
+ */
+/**
+ * Implements hook_schema().
+ */
+function stripe_checkout_schema() {
+  $schema['pxl_user_stripe_subscription'] = array(
+    'description' => 'Table that relates a registered user with a Stripe subscription and the selected fee.',
+    'fields' => array(
+      'stripe_cust_id' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Stripe customer id, that holds subscription',
+      ),
+      'user_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The user id of the user, that is related to the Stripe customer',
+      ),
+      'stripe_plan_id' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Stripe subscription plan id',
+      ),
+      'app_fee_percentage' => array(
+        'type' => 'numeric',
+        'size' => 'normal',
+        'not null' => FALSE,
+        'default' => 0,
+        'precision' => 10,
+        'scale' => 3,
+        'description' => 'Selected application fee percentage for subscription',
+      ),
+      'stripe_evt_id' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Stripe charge.succeeded event id used to assure idempotency of incoming charge events',
+      ),
+    ),
+  );
+  return $schema;
+}
+

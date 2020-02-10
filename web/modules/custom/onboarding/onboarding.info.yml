@@ -1,0 +1,10 @@
+name: 'Onboarding'
+description: 'Implements the onboarding process of the civic-bge members.'
+core: 8.x
+type: module
+package: Pixelgarage
+
+dependencies:
+  - 'webform:webform'
+  - 'webform:webform_scheduled_email'
+  - 'drupal:user'

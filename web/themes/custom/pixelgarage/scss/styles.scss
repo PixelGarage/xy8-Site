@@ -1,0 +1,52 @@
+/* 
+ * Pixelgarage styling
+ *
+ * Custom Styling can use bootstrap functions, mixins and all utility classes.
+ * The elements are normalized with bootstrap but not styled at all.
+ *
+ * This SCSS framework is an extension of the bootstrap framework in the following points:
+ *
+ *  1) Container x-padding can be set for all breakpoints (has not to be equal to grid-gutter-width
+ *
+ *  2) Grid system with breakpoint dependant grid-gutter-widths (see $grid-gutter-widths in _variables.scss)
+ *
+ *  3) All spaces (padding, margin) are based on the $grid-gutter-widths!
+ *
+ * -----------------------------------------------------------------------------*/
+
+//
+// Define bootstrap library path
+$bs-path: '../../../../../libraries/bootstrap';
+
+/* import mixins and functions and fonts */
+@import "variables";
+@import "fonts";
+
+/* normalize HTML elements (bootstrap) */
+@import '../../../../../libraries/bootstrap/scss/bootstrap-reboot';
+
+/* import bootstrap utility rules */
+@import "../../../../../libraries/bootstrap/scss/utilities";
+
+/* Specific bootstrap rules */
+@import '../../../../../libraries/bootstrap/scss/alert';
+@import "../../../../../libraries/bootstrap/scss/transitions";
+@import "../../../../../libraries/bootstrap/scss/nav";
+@import "../../../../../libraries/bootstrap/scss/navbar";
+@import "../../../../../libraries/bootstrap/scss/images";
+@import "../../../../../libraries/bootstrap/scss/modal";
+@import "../../../../../libraries/bootstrap/scss/tables";
+
+/* PXL mixins and functions */
+@import "functions";
+@import "mixins";
+
+/* import specific Pixelgarage rules */
+@import "grid";
+@import "spacing";
+@import "utilities";
+@import "typography";
+@import "themes";
+
+/* import Drupal specific components */
+@import "structures";

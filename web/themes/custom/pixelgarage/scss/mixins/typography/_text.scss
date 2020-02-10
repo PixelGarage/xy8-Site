@@ -1,0 +1,128 @@
+/*
+ * Typography mixins
+ */
+// Import fixed or responsive font and headline style
+//@import "text-resp";
+@import "text-fix";
+@import "text-headline";
+
+
+// Variables
+// -------------------------
+$pxl-color-glow: #40856D;
+
+
+//
+//  TEXT optimisation
+//
+// Language dependant word hyphenation (language has to be set in html element)
+@mixin pxl-hyphenate($mode: auto){
+  // Non standard for webkit, breaks between words
+  word-break: break-word;
+
+  // uses dictionaries for correct word breaking in supported languages
+  -webkit-hyphens: $mode;
+  -moz-hyphens: $mode;
+  -ms-hyphens: $mode;
+  hyphens: $mode;
+}
+
+//
+// Sharper font smoothing for modern browsers
+@mixin pxl-sharp-fonts(){
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-smoothing: antialiased;
+
+  // Subpixel Rendering -> https://www.mobomo.com/2014/05/better-font-smoothing-in-chrome-on-mac-os-x
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+  only screen and ( min-device-pixel-ratio: 1.25),
+  only screen and ( min-resolution: 200dpi),
+  only screen and ( min-resolution: 1.25dppx) {
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+//
+// CSS3 Glow Animation
+//
+@mixin pxl-keyframes-text-glow($color: $pxl-color-glow) {
+  @-webkit-keyframes text-glow {
+    from { text-shadow: 0 0 8px $color, 0 0 8px $color, 0 0 8px $color, 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 18px $color, 0 0 22px $color;  }
+    to   { text-shadow: 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 32px $color;  }
+  }
+  @-moz-keyframes text-glow {
+    from { text-shadow: 0 0 8px $color, 0 0 8px $color, 0 0 8px $color, 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 18px $color, 0 0 22px $color;  }
+    to   { text-shadow: 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 32px $color;  }
+  }
+  @keyframes text-glow {
+    from { text-shadow: 0 0 8px $color, 0 0 8px $color, 0 0 8px $color, 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 18px $color, 0 0 22px $color;  }
+    to   { text-shadow: 0 0 12px $color, 0 0 12px $color, 0 0 12px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 24px $color, 0 0 32px $color;  }
+  }
+}
+
+
+//
+// Define specific styles for clarity
+//
+@mixin pxl-title($teaser:false){
+  @include pxl-font-style(title, $teaser);
+}
+
+@mixin pxl-subtitle($teaser:false){
+  @include pxl-font-style(subtitle, $teaser);
+}
+
+@mixin pxl-leadtext($teaser:false){
+  @include pxl-font-style(text, $teaser);
+  margin-bottom: $line-height;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@mixin pxl-text($teaser:false){
+  @include pxl-font-style(text, $teaser);
+}
+
+@mixin pxl-subtext($teaser:false){
+  @include pxl-font-style(subtext, $teaser);
+}
+
+@mixin pxl-legend($teaser:false){
+  @include pxl-font-style(legend, $teaser);
+}
+
+@mixin pxl-formtext($teaser:false){
+  @include pxl-font-style(form, $teaser);
+}
+
+@mixin pxl-quote($teaser:false){
+  @include pxl-font-style(text, $teaser);
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+}
+
+@mixin pxl-menutext($teaser:false){
+  @include pxl-font-style(text, $teaser);
+  font-weight: bold;
+  font-style: normal;
+}
+
+// Big first letter
+@mixin pxl-paragraph-first-letter($teaser:false){
+  p::first-letter {
+    @include pxl-font-style(title, $teaser);
+    float: left;
+    vertical-align: top;
+  }
+}
+
+// Glow title
+@mixin pxl-glow($teaser:false){
+  @include pxl-font-style(title, $teaser);
+  @include pxl-animation(text-glow 3s ease-in-out infinite alternate);
+  @include pxl-keyframes-text-glow();
+  text-shadow: 0 0 10px $pxl-color-glow, 0 0 10px $pxl-color-glow, 0 0 10px $pxl-color-glow, 0 0 20px $pxl-color-glow, 0 0 20px $pxl-color-glow, 0 0 20px $pxl-color-glow, 0 0 20px $pxl-color-glow, 0 0 30px $pxl-color-glow;
+}
