@@ -1,4 +1,4 @@
-##Drupal starter kit
+## Drupal starter kit
 This Drupal starter kit has been created by following the instructions in the file "README-Install Drupal.md".
 
 To create a new Drupal project with the starter kit, perform the following steps:
@@ -17,7 +17,7 @@ drush cr
 ```
 You're ready to go.
 
-###Backend login
+### Backend login
 The initial Drupal Administrator login has the following credentials:
 
 name: dpAdmin
