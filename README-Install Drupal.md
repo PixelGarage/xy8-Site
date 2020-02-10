@@ -1,6 +1,6 @@
-##Installing Drupal
+## Installing Drupal
 
-###Project creation
+### Project creation
 Create a minimal drupal project and add some tools for optimisation.
 
 ```bash
@@ -11,7 +11,7 @@ composer remove drupal/core-project-message
 composer require drush/drush
 composer require zaporylie/composer-drupal-optimizations
 ```
-###Create top directories
+### Create top directories
 Create directories for private and temporary files outside of the website root.
 ```bash
 mkdir config/sync
@@ -26,7 +26,7 @@ Install site with drush.
 drush site:install --account-name=dpAdmin --account-pass=dpAdmin!
 ```
 
-###Create an .env file
+### Create an .env file
 Add the PHP dot env library.
 ```bash 
 composer require vlucas/phpdotenv
@@ -65,7 +65,7 @@ $settings['trusted_host_patterns'] = array(
 );
 ```
 
-###Enable local development override configuration
+### Enable local development override configuration
 See https://drupalize.me/tutorial/configure-your-environment-theme-development?p=2512 for explanation.
 
 Skip the overridden development services file in scaffolding by adding the following to the "drupal-scaffold" section in composer.json file.
@@ -76,7 +76,7 @@ Skip the overridden development services file in scaffolding by adding the follo
 ```
 
 
-###Enable services and CORS
+### Enable services and CORS
 Copy the file web/sites/default/default.services.yml to web/sites/default/services.yml
 
 Enable CORS with the following settings:
@@ -99,7 +99,7 @@ Enable CORS with the following settings:
     supportsCredentials: false
 ```
 
-###Download third-party libraries with composer
+### Download third-party libraries with composer
 Enable the loading of npm or bower libraries with composer.
 ```bash
 mkdir web/libraries
@@ -124,7 +124,7 @@ Update "installer-types" and "installer-paths" in the "extra" section of compose
 }
 ```
 
-###Patching projects
+### Patching projects
 Require the library. This is a simple patches plugin for Composer. Applies a patch from a local or remote file to any package required with composer.
 ```bash
 composer require cweagans/composer-patches
@@ -150,7 +150,7 @@ A patch is added as follows to the "extra" section:
   }
 ```
 
-###Setup deployment
+### Setup deployment
 Setup the deployer library (see https://deployer.org/).
 ```bash
 composer require deployer/deployer
@@ -168,7 +168,7 @@ Add the deploy command to the scripts section in composer.json.
 Create the deploy.php file in the top directory.
 
 
-###Manage dependencies for custom modules and themes
+### Manage dependencies for custom modules and themes
 To let composer manage the dependencies for any custom module or theme, perform the following commands.
 ```bash
 composer config repositories.custom-module path web/modules/custom/*
@@ -180,17 +180,17 @@ composer require org/custom-module
 ```
 
 
-###Git the project
+### Git the project
 Copy .gitignore and initialize project repository.
 ```bash
 git init
 git checkout -b master
 ```
 
-###Module installation
+### Module installation
 The following modules are essential tools and therefore have been installed and enabled.
 
-####Custom Pixelgarage Theme
+#### Custom Pixelgarage Theme
 drupal/bootstrap_barrio
 npm-asset/bootstrap
 pixelgarage/pixelgarage
@@ -199,7 +199,7 @@ pixelgarage/pixelgarage
 composer require pixelgarage/pixelgarage
 ```
 
-####Administration tools
+#### Administration tools
 drupal/admin_toolbar
 drupal/backup_migrate
 drupal/coffee
@@ -210,7 +210,7 @@ composer require drupal/admin_toolbar drupal/backup_migrate drupal/coffee drupal
 drush en admin_toolbar, backup_migrate, coffee, diff, entity_clone
 ```
 
-####Development tools
+#### Development tools
 drupal/core-dev
 drupal/twig_xdebug
 
@@ -224,7 +224,7 @@ composer require drupal/bamboo_twig
 drush en bamboo_twig
 ```
 
-####Utility tools
+#### Utility tools
 drupal/token
 
 ```bash
@@ -232,7 +232,7 @@ composer require drupal/token
 drush en token
 ```
 
-####Additional fields
+#### Additional fields
 drupal/address
 drupal/video_embed_field
 
@@ -241,7 +241,7 @@ composer require drupal/address drupal/video_embed_field
 drush en address, video_embed_field
 ```
 
-####Editors
+#### Editors
 drupal/gutenberg
 
 drupal/linkit
@@ -256,7 +256,7 @@ composer require drupal/linkit drupal/editor_advanced_link drupal/focal_point dr
 drush en linkit, editor_advanced_link, focal_point, ckeditor_loremipsum
 ```
 
-####SEO tools
+#### SEO tools
 drupal/pathauto
 drupal/metatag
 drupal/redirect
@@ -269,7 +269,7 @@ composer require drupal/pathauto drupal/metatag drupal/redirect drupal/google_an
 drush en pathauto, metatag, redirect, google_analytics, simple_sitemap, rabbit_hole
 ```
 
-####Webforms
+#### Webforms
 drupal/webform
 
 ```bash
@@ -277,7 +277,7 @@ composer require drupal/webform
 drush en webform
 ```
 
-####Spam prevention
+#### Spam prevention
 drupal/antibot
 
 ```bash
@@ -289,19 +289,19 @@ drush en antibot
 
 The following modules list shows an excerpt of useful modules thematically sorted.
 
-####Menu
+#### Menu
 drupal/responsive_menu
 
-####Layout tools
+#### Layout tools
 drupal/ds
 drupal/paragraphs
 drupal/bootstrap_layouts
 drupal/views_bootstrap
 
-####Twig tools
+#### Twig tools
 drupal/bamboo_twig
 
-####Decoupled Drupal modules
+#### Decoupled Drupal modules
 drupal/consumers
 drupal/consumer_image_styles
 drupal/decoupled_router
@@ -314,13 +314,13 @@ drupal/restui
 drupal/simple_oauth
 drupal/subrequests
 
-####Mail system
+#### Mail system
 drupal/mailsystem
 drupal/swiftmailer
 
-####Browser tools
+#### Browser tools
 drupal/entity_browser
 drupal/media_entity_browser
 
-####GDPR compliance
+#### GDPR compliance
 drupal/eu_cookie_compliance
